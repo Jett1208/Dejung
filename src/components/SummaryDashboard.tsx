@@ -103,7 +103,7 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, ite
 
         <div className="text-2xl sm:text-3xl font-black text-emerald-400 mb-1">
           {summary.isOverAllocated ? (
-            <span className="text-rose-400 text-xl font-bold">0 บ./วัน (เกินงบ)</span>
+            <span className="text-rose-400 text-xl font-bold">0 ฿/วัน (เกินงบ)</span>
           ) : (
             `฿${Math.round(summary.freeDailyAllowance).toLocaleString()} บ./วัน`
           )}

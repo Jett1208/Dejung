@@ -7,6 +7,7 @@ interface SavingsGoalCardProps {
   totalSavingsAllocated: number;
   savingsProgressPercent: number;
   savingsCyclesRequired: number;
+  cycleDays?: number;
   onSavingsTargetChange: (value: number) => void;
   onCurrentSavingsChange: (value: number) => void;
 }
@@ -17,6 +18,7 @@ export const SavingsGoalCard: React.FC<SavingsGoalCardProps> = ({
   totalSavingsAllocated,
   savingsProgressPercent,
   savingsCyclesRequired,
+  cycleDays = 30,
   onSavingsTargetChange,
   onCurrentSavingsChange,
 }) => {
@@ -127,7 +129,7 @@ export const SavingsGoalCard: React.FC<SavingsGoalCardProps> = ({
             <TrendingUp className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
               <p className="font-bold">
-                ด้วยยอดเงินออมรอบนี้ (฿{totalSavingsAllocated.toLocaleString()}) จะถึงเป้าหมายในอีก {savingsCyclesRequired} รอบ (ประมาณ {savingsCyclesRequired} เดือน)
+                ด้วยยอดเงินออมรอบนี้ (฿{totalSavingsAllocated.toLocaleString()}) จะถึงเป้าหมายในอีก {savingsCyclesRequired} รอบ (ประมาณ {savingsCyclesRequired * cycleDays} วัน)
               </p>
               <p className="text-[11px] text-emerald-700/80 mt-0.5">
                 ยอดที่ยังขาดอีก ฿{Math.max(0, savingsTarget - currentSavings).toLocaleString()} บาท

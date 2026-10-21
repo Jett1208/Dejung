@@ -65,6 +65,7 @@ export function App() {
               totalSavingsAllocated={summary.totalSavingsAllocated}
               savingsProgressPercent={summary.savingsProgressPercent}
               savingsCyclesRequired={summary.savingsCyclesRequired}
+              cycleDays={state.cycleDays}
               onSavingsTargetChange={setSavingsTarget}
               onCurrentSavingsChange={setCurrentSavings}
             />

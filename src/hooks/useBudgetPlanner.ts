@@ -4,6 +4,11 @@ import { calculateBudget } from '../domain/calculator';
 
 const STORAGE_KEY = 'dejung_budget_state_v1';
 
+export const generateId = () =>
+  typeof crypto !== 'undefined' && crypto.randomUUID
+    ? crypto.randomUUID()
+    : `item_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+
 export const DEFAULT_BUDGET_STATE: BudgetState = {
   totalFunds: 0,
   cycleDays: 30,
@@ -62,7 +67,7 @@ export function useBudgetPlanner() {
   const addItem = useCallback((item: Omit<AllocationItem, 'id'>) => {
     const newItem: AllocationItem = {
       ...item,
-      id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `item_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      id: generateId(),
     };
     setState((prev) => ({
       ...prev,
@@ -110,7 +115,7 @@ export function useBudgetPlanner() {
         cycleDays: Math.max(1, Number(parsed.cycleDays) || 30),
         items: Array.isArray(parsed.items)
           ? parsed.items.map((it: Record<string, unknown>) => ({
-              id: typeof it?.id === 'string' ? it.id : `item_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+              id: typeof it?.id === 'string' ? it.id : generateId(),
               name: String(it?.name || ''),
               rule: (['daily', 'fixed', 'percentage'].includes(String(it?.rule))
                 ? it.rule

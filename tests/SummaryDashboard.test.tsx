@@ -45,6 +45,6 @@ describe('SummaryDashboard Component', () => {
     render(<SummaryDashboard summary={overSummary} items={mockItems} />);
 
     expect(screen.getByText(/จัดสรรเงินเกินงบไป ฿5,000 บาท/i)).toBeInTheDocument();
-    expect(screen.getByText(/0 บ.\/วัน \(เกินงบ\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/0 ฿\/วัน \(เกินงบ\)/i)).toBeInTheDocument();
   });
 });

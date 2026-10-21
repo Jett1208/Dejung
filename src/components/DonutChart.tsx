@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { AllocationItem, ItemCalculation } from '../domain/types';
 
 interface DonutChartProps {
@@ -25,6 +25,8 @@ export const DonutChart: React.FC<DonutChartProps> = ({
   totalFunds,
   unallocatedBalance,
 }) => {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
   const summaryMap = new Map<string, ItemCalculation>(
     itemSummaries.map((s) => [s.id, s])
   );
@@ -45,7 +47,6 @@ export const DonutChart: React.FC<DonutChartProps> = ({
     );
   }
 
-  // Calculate slices
   // Radius = 60, circumference = 2 * PI * 60 = 376.99
   const radius = 60;
   const circumference = 2 * Math.PI * radius;
@@ -86,6 +87,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 
   const unallocatedPercent = Math.max(0, 100 - currentOffset);
   const allocatedPercent = Math.min(100, Math.round(currentOffset * 10) / 10);
+  const activeSlice = slices.find((s) => s.id === hoveredId);
 
   return (
     <div>
@@ -102,60 +104,88 @@ export const DonutChart: React.FC<DonutChartProps> = ({
           />
 
           {/* Slices */}
-          {slices.map((slice) => (
-            <circle
-              key={slice.id}
-              cx="80"
-              cy="80"
-              r={radius}
-              fill="transparent"
-              stroke={slice.color}
-              strokeWidth="16"
-              strokeDasharray={slice.strokeDasharray}
-              strokeDashoffset={slice.strokeDashoffset}
-              strokeLinecap="round"
-              className="transition-all duration-500 ease-out"
-            />
-          ))}
+          {slices.map((slice) => {
+            const isHovered = slice.id === hoveredId;
+            return (
+              <circle
+                key={slice.id}
+                cx="80"
+                cy="80"
+                r={radius}
+                fill="transparent"
+                stroke={slice.color}
+                strokeWidth={isHovered ? '20' : '16'}
+                strokeDasharray={slice.strokeDasharray}
+                strokeDashoffset={slice.strokeDashoffset}
+                strokeLinecap="round"
+                className="cursor-pointer transition-all duration-300 ease-out"
+                onMouseEnter={() => setHoveredId(slice.id)}
+                onMouseLeave={() => setHoveredId(null)}
+              />
+            );
+          })}
         </svg>
 
-        {/* Center Text */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-            จัดสรรแล้ว
-          </span>
-          <span className="text-2xl font-black text-slate-900 leading-tight">
-            {allocatedPercent}%
-          </span>
-          <span className="text-[10px] text-slate-400 font-semibold">
-            {unallocatedBalance < 0 ? 'เกินงบ' : `เหลือ ${Math.round(unallocatedPercent)}%`}
-          </span>
+        {/* Center Text (Interactive) */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none px-4">
+          {activeSlice ? (
+            <>
+              <span className="text-[11px] font-bold text-slate-500 truncate max-w-[110px]">
+                {activeSlice.name}
+              </span>
+              <span className="text-xl font-black text-slate-900 leading-tight">
+                ฿{activeSlice.amount.toLocaleString()}
+              </span>
+              <span className="text-[11px] text-emerald-600 font-extrabold">
+                {activeSlice.percent}%
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                จัดสรรแล้ว
+              </span>
+              <span className="text-2xl font-black text-slate-900 leading-tight">
+                {allocatedPercent}%
+              </span>
+              <span className="text-[10px] text-slate-400 font-semibold">
+                {unallocatedBalance < 0 ? 'เกินงบ' : `เหลือ ${Math.round(unallocatedPercent)}%`}
+              </span>
+            </>
+          )}
         </div>
       </div>
 
       {/* Legend list */}
       <div className="mt-5 space-y-2 max-h-48 overflow-y-auto pr-1">
-        {slices.map((slice) => (
-          <div
-            key={slice.id}
-            className="flex items-center justify-between text-xs py-1 border-b border-slate-100 last:border-0"
-          >
-            <div className="flex items-center gap-2 truncate pr-2">
-              <span
-                className="w-2.5 h-2.5 rounded-full shrink-0"
-                style={{ backgroundColor: slice.color }}
-              />
-              <span className="font-semibold text-slate-700 truncate">{slice.name}</span>
+        {slices.map((slice) => {
+          const isHovered = slice.id === hoveredId;
+          return (
+            <div
+              key={slice.id}
+              onMouseEnter={() => setHoveredId(slice.id)}
+              onMouseLeave={() => setHoveredId(null)}
+              className={`flex items-center justify-between text-xs py-1 px-1.5 rounded-lg cursor-pointer transition ${
+                isHovered ? 'bg-slate-100/80 shadow-xs' : 'hover:bg-slate-50'
+              }`}
+            >
+              <div className="flex items-center gap-2 truncate pr-2">
+                <span
+                  className="w-2.5 h-2.5 rounded-full shrink-0"
+                  style={{ backgroundColor: slice.color }}
+                />
+                <span className="font-semibold text-slate-700 truncate">{slice.name}</span>
+              </div>
+              <div className="text-right shrink-0">
+                <span className="font-bold text-slate-900">฿{slice.amount.toLocaleString()}</span>
+                <span className="text-slate-400 ml-1.5 text-[11px]">({slice.percent}%)</span>
+              </div>
             </div>
-            <div className="text-right shrink-0">
-              <span className="font-bold text-slate-900">฿{slice.amount.toLocaleString()}</span>
-              <span className="text-slate-400 ml-1.5 text-[11px]">({slice.percent}%)</span>
-            </div>
-          </div>
-        ))}
+          );
+        })}
 
         {unallocatedBalance > 0 && (
-          <div className="flex items-center justify-between text-xs py-1 text-slate-400">
+          <div className="flex items-center justify-between text-xs py-1 px-1.5 text-slate-400">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-slate-300 shrink-0" />
               <span>รอจัดสรร</span>

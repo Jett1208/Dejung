@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronUp, Coins, X, PieChart } from 'lucide-react';
+import { ChevronUp, Coins, X, PieChart, AlertTriangle } from 'lucide-react';
 import type { CalculationSummary, AllocationItem } from '../domain/types';
 import { DonutChart } from './DonutChart';
 
@@ -13,27 +13,42 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
 
   return (
     <>
-      {/* Floating Bottom Bar (Mobile/iPad) */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] px-4 py-3">
-        <div className="max-w-md mx-auto flex items-center justify-between">
+      {/* Floating Bottom Bar (Mobile/iPad) - Tappable anywhere */}
+      <div
+        onClick={() => setIsExpanded(true)}
+        className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md border-t px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] cursor-pointer transition select-none ${
+          summary.isOverAllocated
+            ? 'bg-rose-50/95 border-rose-300 text-rose-900 shadow-rose-500/10'
+            : 'bg-white/95 border-slate-200 text-slate-800'
+        }`}
+      >
+        <div className="max-w-md mx-auto flex items-center justify-between pointer-events-none">
           <div className="flex items-center gap-3">
             <div
               className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${
                 summary.isOverAllocated
-                  ? 'bg-rose-100 text-rose-600'
+                  ? 'bg-rose-200/80 text-rose-700'
                   : 'bg-emerald-100 text-emerald-700'
               }`}
             >
-              <Coins className="w-5 h-5" />
+              {summary.isOverAllocated ? (
+                <AlertTriangle className="w-5 h-5" />
+              ) : (
+                <Coins className="w-5 h-5" />
+              )}
             </div>
 
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-[11px] font-bold text-slate-400 uppercase">
+                <span
+                  className={`text-[11px] font-bold uppercase ${
+                    summary.isOverAllocated ? 'text-rose-700' : 'text-slate-400'
+                  }`}
+                >
                   เงินคงเหลือ
                 </span>
                 {summary.isOverAllocated && (
-                  <span className="text-[10px] font-bold text-rose-600 bg-rose-50 px-1.5 py-0.2 rounded">
+                  <span className="text-[10px] font-extrabold text-white bg-rose-600 px-1.5 py-0.2 rounded-full">
                     งบเกิน
                   </span>
                 )}
@@ -48,23 +63,29 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <div className="text-right hidden sm:block">
-              <div className="text-[10px] font-semibold text-slate-400">ใช้อิสระได้</div>
-              <div className="text-xs font-extrabold text-emerald-600">
-                {summary.isOverAllocated ? '0 บ./วัน' : `฿${Math.round(summary.freeDailyAllowance)}/วัน`}
+              <div
+                className={`text-[10px] font-semibold ${
+                  summary.isOverAllocated ? 'text-rose-700' : 'text-slate-400'
+                }`}
+              >
+                ใช้อิสระได้
+              </div>
+              <div
+                className={`text-xs font-extrabold ${
+                  summary.isOverAllocated ? 'text-rose-600' : 'text-emerald-600'
+                }`}
+              >
+                {summary.isOverAllocated ? '0 ฿/วัน (เกินงบ)' : `฿${Math.round(summary.freeDailyAllowance)}/วัน`}
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setIsExpanded(true)}
-              className="flex items-center gap-1 px-3 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold transition shadow-sm"
-            >
+            <div className="flex items-center gap-1 px-3 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold transition shadow-sm pointer-events-auto">
               <PieChart className="w-3.5 h-3.5" />
               <span>สรุปภาพรวม</span>
               <ChevronUp className="w-3.5 h-3.5" />
-            </button>
+            </div>
           </div>
         </div>
       </div>
@@ -96,8 +117,20 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
 
             {/* Quick Stat Pill */}
             <div className="grid grid-cols-2 gap-3 mb-5">
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                <span className="text-[11px] font-bold text-slate-400">เงินคงเหลือ</span>
+              <div
+                className={`p-3 rounded-xl border ${
+                  summary.isOverAllocated
+                    ? 'bg-rose-50 border-rose-200'
+                    : 'bg-slate-50 border-slate-100'
+                }`}
+              >
+                <span
+                  className={`text-[11px] font-bold ${
+                    summary.isOverAllocated ? 'text-rose-700' : 'text-slate-400'
+                  }`}
+                >
+                  เงินคงเหลือ
+                </span>
                 <p
                   className={`text-lg font-black ${
                     summary.isOverAllocated ? 'text-rose-600' : 'text-slate-900'
@@ -111,7 +144,7 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
                 <span className="text-[11px] font-bold text-slate-300">ใช้อิสระได้เฉลี่ย</span>
                 <p className="text-lg font-black text-emerald-400">
                   {summary.isOverAllocated
-                    ? '0 บ./วัน'
+                    ? '0 ฿/วัน (เกินงบ)'
                     : `฿${Math.round(summary.freeDailyAllowance)}/วัน`}
                 </p>
               </div>
