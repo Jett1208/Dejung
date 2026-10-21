@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronUp, Coins, X, PieChart } from 'lucide-react';
+import { ChevronUp, Coins, X, PieChart, Sparkles } from 'lucide-react';
 import type { CalculationSummary, AllocationItem } from '../domain/types';
 import { DonutChart } from './DonutChart';
 import { Dejung3DCoin } from './Dejung3DCoin';
@@ -7,9 +7,10 @@ import { Dejung3DCoin } from './Dejung3DCoin';
 interface StickyBottomBarProps {
   summary: CalculationSummary;
   items: AllocationItem[];
+  onOpenResult?: () => void;
 }
 
-export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items }) => {
+export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items, onOpenResult }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -159,9 +160,23 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
               unallocatedBalance={summary.unallocatedBalance}
             />
 
+            {onOpenResult && (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsExpanded(false);
+                  onOpenResult();
+                }}
+                className="w-full mt-4 py-3 bg-brand-lime hover:bg-brand-mint text-slate-950 font-medium text-xs rounded-full flex items-center justify-center gap-2 shadow-sm transition"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>เปิดดูสลิปสรุปผลการจัดสรร</span>
+              </button>
+            )}
+
             <button
               onClick={() => setIsExpanded(false)}
-              className="w-full mt-5 py-2.5 glass-pill text-slate-700 dark:text-slate-200 text-xs font-light rounded-full transition"
+              className="w-full mt-3 py-2.5 glass-pill text-slate-700 dark:text-slate-200 text-xs font-light rounded-full transition"
             >
               ปิดหน้าต่าง
             </button>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Sparkles } from 'lucide-react';
 import { useBudgetPlanner } from './hooks/useBudgetPlanner';
 import { Header } from './components/Header';
 import { SetupCard } from './components/SetupCard';
@@ -7,6 +8,7 @@ import { SavingsGoalCard } from './components/SavingsGoalCard';
 import { SummaryDashboard } from './components/SummaryDashboard';
 import { StickyBottomBar } from './components/StickyBottomBar';
 import { ExportImportModal } from './components/ExportImportModal';
+import { AllocationResultModal } from './components/AllocationResultModal';
 import { Ambient3DBackground } from './components/Ambient3DBackground';
 
 export function App() {
@@ -26,6 +28,7 @@ export function App() {
   } = useBudgetPlanner();
 
   const [isExportImportOpen, setIsExportImportOpen] = useState(false);
+  const [isResultOpen, setIsResultOpen] = useState(false);
 
   // Theme state: defaults to dark for modern midnight Gen Z aesthetics
   const [isDark, setIsDark] = useState<boolean>(() => {
@@ -105,17 +108,37 @@ export function App() {
               onSavingsTargetChange={setSavingsTarget}
               onCurrentSavingsChange={setCurrentSavings}
             />
+
+            {/* Primary Trigger Button: View Allocation Result Slip */}
+            <div className="pt-1 pb-2">
+              <button
+                type="button"
+                onClick={() => setIsResultOpen(true)}
+                className="w-full py-3.5 px-6 bg-brand-lime hover:bg-brand-mint text-slate-950 rounded-full font-medium text-sm flex items-center justify-center gap-2.5 transition shadow-lg hover:shadow-brand-lime/20 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+              >
+                <Sparkles className="w-4 h-4 text-slate-950" />
+                <span>ดูสลิปสรุปผลการจัดสรรเงิน</span>
+              </button>
+            </div>
           </main>
 
           {/* Right Column: Visual Summary Dashboard with 3D Coin (Desktop Sticky) */}
           <aside className="hidden lg:block lg:col-span-5 xl:col-span-5 sticky top-6">
-            <SummaryDashboard summary={summary} items={state.items} />
+            <SummaryDashboard
+              summary={summary}
+              items={state.items}
+              onOpenResult={() => setIsResultOpen(true)}
+            />
           </aside>
         </div>
       </div>
 
       {/* Mobile / iPad Sticky Bottom Summary Bar */}
-      <StickyBottomBar summary={summary} items={state.items} />
+      <StickyBottomBar
+        summary={summary}
+        items={state.items}
+        onOpenResult={() => setIsResultOpen(true)}
+      />
 
       {/* Export / Import JSON Modal */}
       <ExportImportModal
@@ -123,6 +146,19 @@ export function App() {
         onClose={() => setIsExportImportOpen(false)}
         exportJSON={exportJSON}
         importJSON={importJSON}
+      />
+
+      {/* Allocation Result Slip Modal */}
+      <AllocationResultModal
+        isOpen={isResultOpen}
+        onClose={() => setIsResultOpen(false)}
+        totalFunds={state.totalFunds}
+        cycleDays={state.cycleDays}
+        items={state.items}
+        itemSummaries={summary.itemSummaries}
+        summary={summary}
+        savingsTarget={state.savingsTarget}
+        currentSavings={state.currentSavings}
       />
     </div>
   );

@@ -4,6 +4,7 @@ import {
   AlertTriangle,
   Coins,
   CalendarDays,
+  Sparkles,
 } from 'lucide-react';
 import type { CalculationSummary, AllocationItem } from '../domain/types';
 import { DonutChart } from './DonutChart';
@@ -12,9 +13,10 @@ import { Dejung3DCoin } from './Dejung3DCoin';
 interface SummaryDashboardProps {
   summary: CalculationSummary;
   items: AllocationItem[];
+  onOpenResult?: () => void;
 }
 
-export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, items }) => {
+export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, items, onOpenResult }) => {
   const percentAllocated = summary.totalFunds > 0
     ? Math.round((summary.totalAllocated / summary.totalFunds) * 100)
     : 0;
@@ -145,6 +147,17 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, ite
           totalFunds={summary.totalFunds}
           unallocatedBalance={summary.unallocatedBalance}
         />
+
+        {onOpenResult && (
+          <button
+            type="button"
+            onClick={onOpenResult}
+            className="w-full mt-5 py-3 px-4 bg-brand-lime hover:bg-brand-mint text-slate-950 font-medium text-xs rounded-full flex items-center justify-center gap-2 transition shadow-sm hover:scale-[1.01] active:scale-[0.99]"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>ดูสลิปสรุปผลการจัดสรร</span>
+          </button>
+        )}
       </div>
     </div>
   );
