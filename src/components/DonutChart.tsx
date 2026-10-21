@@ -9,14 +9,14 @@ interface DonutChartProps {
 }
 
 const PALETTE = [
-  '#10b981', // Emerald
+  '#72F6BD', // Mint (Brand)
+  '#D9FF62', // Lime (Brand)
+  '#A985FF', // Purple (Brand)
   '#f59e0b', // Amber
   '#3b82f6', // Blue
   '#f97316', // Orange
-  '#8b5cf6', // Purple
   '#ec4899', // Pink
   '#06b6d4', // Cyan
-  '#14b8a6', // Teal
 ];
 
 export const DonutChart: React.FC<DonutChartProps> = ({
@@ -39,10 +39,10 @@ export const DonutChart: React.FC<DonutChartProps> = ({
   if (totalFunds === 0 && items.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-6 text-center">
-        <div className="w-36 h-36 rounded-full border-8 border-dashed border-slate-200 flex items-center justify-center text-xs text-slate-400 font-bold mb-3">
+        <div className="w-36 h-36 rounded-full border-8 border-dashed border-slate-200 dark:border-midnight-border flex items-center justify-center text-xs text-slate-400 dark:text-slate-500 font-bold mb-3">
           ไม่มีข้อมูล
         </div>
-        <p className="text-xs text-slate-400">ใส่เงินก้อนและเพิ่มรายการเพื่อดูกราฟสัดส่วน</p>
+        <p className="text-xs text-slate-400 dark:text-slate-500">ใส่เงินก้อนและเพิ่มรายการเพื่อดูกราฟสัดส่วน</p>
       </div>
     );
   }
@@ -99,7 +99,8 @@ export const DonutChart: React.FC<DonutChartProps> = ({
             cy="80"
             r={radius}
             fill="transparent"
-            stroke="#e2e8f0"
+            stroke="currentColor"
+            className="text-slate-200 dark:text-midnight-border"
             strokeWidth="16"
           />
 
@@ -130,25 +131,25 @@ export const DonutChart: React.FC<DonutChartProps> = ({
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none px-4">
           {activeSlice ? (
             <>
-              <span className="text-[11px] font-bold text-slate-500 truncate max-w-[110px]">
+              <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 truncate max-w-[110px]">
                 {activeSlice.name}
               </span>
-              <span className="text-xl font-black text-slate-900 leading-tight">
+              <span className="text-xl font-black text-slate-900 dark:text-white leading-tight">
                 ฿{activeSlice.amount.toLocaleString()}
               </span>
-              <span className="text-[11px] text-emerald-600 font-extrabold">
+              <span className="text-[11px] text-emerald-600 dark:text-brand-lime font-extrabold">
                 {activeSlice.percent}%
               </span>
             </>
           ) : (
             <>
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                 จัดสรรแล้ว
               </span>
-              <span className="text-2xl font-black text-slate-900 leading-tight">
+              <span className="text-2xl font-black text-slate-900 dark:text-white leading-tight">
                 {allocatedPercent}%
               </span>
-              <span className="text-[10px] text-slate-400 font-semibold">
+              <span className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold">
                 {unallocatedBalance < 0 ? 'เกินงบ' : `เหลือ ${Math.round(unallocatedPercent)}%`}
               </span>
             </>
@@ -166,7 +167,9 @@ export const DonutChart: React.FC<DonutChartProps> = ({
               onMouseEnter={() => setHoveredId(slice.id)}
               onMouseLeave={() => setHoveredId(null)}
               className={`flex items-center justify-between text-xs py-1 px-1.5 rounded-lg cursor-pointer transition ${
-                isHovered ? 'bg-slate-100/80 shadow-xs' : 'hover:bg-slate-50'
+                isHovered
+                  ? 'bg-slate-100/80 dark:bg-midnight-border/80 shadow-xs'
+                  : 'hover:bg-slate-50 dark:hover:bg-midnight-border/40'
               }`}
             >
               <div className="flex items-center gap-2 truncate pr-2">
@@ -174,27 +177,27 @@ export const DonutChart: React.FC<DonutChartProps> = ({
                   className="w-2.5 h-2.5 rounded-full shrink-0"
                   style={{ backgroundColor: slice.color }}
                 />
-                <span className="font-semibold text-slate-700 truncate">{slice.name}</span>
+                <span className="font-semibold text-slate-700 dark:text-slate-200 truncate">{slice.name}</span>
               </div>
               <div className="text-right shrink-0">
-                <span className="font-bold text-slate-900">฿{slice.amount.toLocaleString()}</span>
-                <span className="text-slate-400 ml-1.5 text-[11px]">({slice.percent}%)</span>
+                <span className="font-bold text-slate-900 dark:text-white">฿{slice.amount.toLocaleString()}</span>
+                <span className="text-slate-400 dark:text-slate-500 ml-1.5 text-[11px]">({slice.percent}%)</span>
               </div>
             </div>
           );
         })}
 
         {unallocatedBalance > 0 && (
-          <div className="flex items-center justify-between text-xs py-1 px-1.5 text-slate-400">
+          <div className="flex items-center justify-between text-xs py-1 px-1.5 text-slate-400 dark:text-slate-500">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-slate-300 shrink-0" />
+              <span className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 shrink-0" />
               <span>รอจัดสรร</span>
             </div>
             <div className="text-right">
-              <span className="font-bold text-slate-600">
+              <span className="font-bold text-slate-600 dark:text-slate-400">
                 ฿{unallocatedBalance.toLocaleString()}
               </span>
-              <span className="text-slate-400 ml-1.5 text-[11px]">
+              <span className="text-slate-400 dark:text-slate-500 ml-1.5 text-[11px]">
                 ({Math.round(unallocatedPercent)}%)
               </span>
             </div>

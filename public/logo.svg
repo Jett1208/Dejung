@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Dejung Gen Z minimal square logo</title>
+  <desc id="desc">A minimal midnight square logo with a playful D monogram, lime allocation bars, and Dejung wordmark.</desc>
+  <defs>
+    <linearGradient id="lime" x1="250" y1="220" x2="747" y2="663" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D9FF62"/>
+      <stop offset="1" stop-color="#72F6BD"/>
+    </linearGradient>
+    <filter id="glow" x="90" y="88" width="848" height="774" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="30" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" rx="196" fill="#10182D"/>
+  <!-- A single letter D is built from balanced money-allocation blocks. -->
+  <path d="M267 238V648H449C603 648 704 563 704 443C704 323 603 238 449 238H267Z" fill="url(#lime)"/>
+  <path d="M365 336H448C535 336 602 379 602 443C602 507 535 550 448 550H365V336Z" fill="#10182D"/>
+  <path d="M267 238V648" stroke="#A985FF" stroke-width="30" stroke-linecap="round"/>
+  <!-- Three clean ticks: split, save, grow. -->
+  <path d="M772 335H812M792 315V355" stroke="#A985FF" stroke-width="18" stroke-linecap="round"/>
+  <path d="M721 603L755 637L827 557" stroke="#FF7D9C" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <g filter="url(#glow)"><circle cx="728" cy="260" r="15" fill="#D9FF62"/></g>
+  <text x="512" y="788" text-anchor="middle" fill="#F6F7FC" font-family="Arial, Helvetica, sans-serif" font-size="130" font-weight="800" letter-spacing="-7">dejung</text>
+  <rect x="397" y="836" width="230" height="10" rx="5" fill="#A985FF"/>
+</svg>
