@@ -41,7 +41,7 @@ _Avoid_: เงินติดลบ, งบบานปลาย
 _Avoid_: เทมเพลต, ตัวอย่างข้อมูลจำลอง, ข้อมูลสุ่ม
 
 **Theme Mode**:
-โหมดการแสดงผลของหน้าเว็บระหว่าง Light Mode และ Dark Mode (Midnight Blue สไตล์ Gen Z)
+โหมดการแสดงผลของหน้าเว็บระหว่าง Dark Mode (สีดำชาร์โคล + สีเขียวเอเมอรัลด์) และ Light Mode (สีขาวบริสุทธิ์ + สีเขียวเอเมอรัลด์) สไตล์ Bento Grid Minimalist
 _Avoid_: โทนสี, สกิน
 
 **3D Mood Indicator**:

@@ -9,14 +9,14 @@ interface DonutChartProps {
 }
 
 const PALETTE = [
-  '#72F6BD', // Mint (Brand)
-  '#D9FF62', // Lime (Brand)
-  '#A985FF', // Purple (Brand)
+  '#05DF72', // Vibrant Emerald (Brand)
+  '#10B981', // Emerald Green (Brand)
+  '#34D399', // Mint
+  '#059669', // Deep Emerald
+  '#38bdf8', // Sky
   '#f59e0b', // Amber
-  '#3b82f6', // Blue
-  '#f97316', // Orange
-  '#ec4899', // Pink
-  '#06b6d4', // Cyan
+  '#818cf8', // Indigo
+  '#f43f5e', // Rose
 ];
 
 export const DonutChart: React.FC<DonutChartProps> = ({

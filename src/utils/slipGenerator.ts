@@ -102,14 +102,14 @@ export async function downloadSlipImage(data: SlipData): Promise<boolean> {
 
   // Ambient luminous glow circles
   const glow1 = ctx.createRadialGradient(160, 160, 20, 160, 160, 280);
-  glow1.addColorStop(0, 'rgba(217, 255, 98, 0.15)'); // Brand Lime
-  glow1.addColorStop(1, 'rgba(217, 255, 98, 0)');
+  glow1.addColorStop(0, 'rgba(5, 223, 114, 0.15)'); // Vibrant Emerald
+  glow1.addColorStop(1, 'rgba(5, 223, 114, 0)');
   ctx.fillStyle = glow1;
   ctx.fillRect(0, 0, width, height);
 
   const glow2 = ctx.createRadialGradient(width - 150, 450, 20, width - 150, 450, 320);
-  glow2.addColorStop(0, 'rgba(114, 246, 189, 0.12)'); // Brand Mint
-  glow2.addColorStop(1, 'rgba(114, 246, 189, 0)');
+  glow2.addColorStop(0, 'rgba(16, 185, 129, 0.12)'); // Emerald Green
+  glow2.addColorStop(1, 'rgba(16, 185, 129, 0)');
   ctx.fillStyle = glow2;
   ctx.fillRect(0, 0, width, height);
 
@@ -134,13 +134,13 @@ export async function downloadSlipImage(data: SlipData): Promise<boolean> {
   ctx.save();
   ctx.beginPath();
   ctx.arc(80, 80, 26, 0, Math.PI * 2);
-  ctx.fillStyle = '#1E293B';
+  ctx.fillStyle = '#08090B';
   ctx.fill();
   ctx.lineWidth = 2;
-  ctx.strokeStyle = '#D9FF62';
+  ctx.strokeStyle = '#05DF72';
   ctx.stroke();
 
-  ctx.fillStyle = '#D9FF62';
+  ctx.fillStyle = '#05DF72';
   ctx.font = 'bold 28px Mitr, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
@@ -206,14 +206,14 @@ export async function downloadSlipImage(data: SlipData): Promise<boolean> {
   // Highlight Hero Card: เงินกินใช้อิสระต่อวัน
   const heroY = statsY + statsHeight + 20;
   const heroHeight = 120;
-  drawRoundedRect(ctx, 50, heroY, width - 100, heroHeight, 20, 'rgba(217, 255, 98, 0.08)', 'rgba(217, 255, 98, 0.25)');
+  drawRoundedRect(ctx, 50, heroY, width - 100, heroHeight, 20, 'rgba(5, 223, 114, 0.08)', 'rgba(5, 223, 114, 0.25)');
 
   ctx.textAlign = 'left';
   ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
   ctx.font = '200 15px Mitr, sans-serif';
   ctx.fillText('✨ เงินกินใช้อิสระเฉลี่ยต่อวัน', 75, heroY + 42);
 
-  ctx.fillStyle = '#D9FF62';
+  ctx.fillStyle = '#05DF72';
   ctx.font = '500 36px Mitr, sans-serif';
   if (summary.isOverAllocated) {
     ctx.fillStyle = '#FF6B8B';
@@ -228,7 +228,7 @@ export async function downloadSlipImage(data: SlipData): Promise<boolean> {
   ctx.font = '200 14px Mitr, sans-serif';
   ctx.fillText(summary.isOverAllocated ? 'งบเกิน' : 'เงินคงเหลือ', width - 75, heroY + 42);
 
-  ctx.fillStyle = summary.isOverAllocated ? '#FF6B8B' : '#72F6BD';
+  ctx.fillStyle = summary.isOverAllocated ? '#FF6B8B' : '#10B981';
   ctx.font = '400 24px Mitr, sans-serif';
   ctx.fillText(`${summary.isOverAllocated ? '-' : ''}฿${Math.abs(summary.unallocatedBalance).toLocaleString()}`, width - 75, heroY + 82);
 
@@ -277,7 +277,7 @@ export async function downloadSlipImage(data: SlipData): Promise<boolean> {
       ctx.fillText(item.name, 70, curY);
 
       // Item Rule / Savings Tag
-      ctx.fillStyle = item.isSavings ? '#D9FF62' : 'rgba(255, 255, 255, 0.45)';
+      ctx.fillStyle = item.isSavings ? '#05DF72' : 'rgba(255, 255, 255, 0.45)';
       ctx.font = '200 13px Mitr, sans-serif';
       ctx.fillText(`(${ruleText})${item.isSavings ? ' • ออม' : ''}`, 260, curY);
 

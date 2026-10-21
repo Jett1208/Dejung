@@ -48,9 +48,9 @@ export const Ambient3DBackground: React.FC<Ambient3DBackgroundProps> = ({ isDark
     const colors = new Float32Array(particleCount * 3);
     const speeds = new Float32Array(particleCount);
 
-    const mintColor = new THREE.Color(isDark ? '#72F6BD' : '#059669');
-    const limeColor = new THREE.Color(isDark ? '#D9FF62' : '#10b981');
-    const purpleColor = new THREE.Color(isDark ? '#A985FF' : '#6366f1');
+    const vibrantGreen = new THREE.Color(isDark ? '#05DF72' : '#059669');
+    const emeraldGreen = new THREE.Color(isDark ? '#10B981' : '#10b981');
+    const mintGreen = new THREE.Color(isDark ? '#34D399' : '#047857');
 
     for (let i = 0; i < particleCount; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 60;
@@ -58,7 +58,7 @@ export const Ambient3DBackground: React.FC<Ambient3DBackgroundProps> = ({ isDark
       positions[i * 3 + 2] = (Math.random() - 0.5) * 30;
 
       const rand = Math.random();
-      const chosenColor = rand > 0.6 ? limeColor : rand > 0.3 ? mintColor : purpleColor;
+      const chosenColor = rand > 0.6 ? vibrantGreen : rand > 0.3 ? emeraldGreen : mintGreen;
       colors[i * 3] = chosenColor.r;
       colors[i * 3 + 1] = chosenColor.g;
       colors[i * 3 + 2] = chosenColor.b;
@@ -104,7 +104,7 @@ export const Ambient3DBackground: React.FC<Ambient3DBackgroundProps> = ({ isDark
 
     for (let i = 0; i < tokenCount; i++) {
       const tokenMat = new THREE.MeshBasicMaterial({
-        color: i % 2 === 0 ? limeColor : mintColor,
+        color: i % 2 === 0 ? vibrantGreen : emeraldGreen,
         wireframe: true,
         transparent: true,
         opacity: isDark ? 0.25 : 0.15,

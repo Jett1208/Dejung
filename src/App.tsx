@@ -61,7 +61,7 @@ export function App() {
   const toggleTheme = () => setIsDark((prev) => !prev);
 
   return (
-    <div className="min-h-screen bg-slate-50/70 dark:bg-midnight-950/80 text-slate-800 dark:text-slate-100 pb-28 lg:pb-16 font-sans relative selection:bg-brand-lime selection:text-slate-900 transition-colors duration-300">
+    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#08090B] text-slate-800 dark:text-white pb-28 lg:pb-16 font-sans relative selection:bg-brand-lime selection:text-slate-950 transition-colors duration-300">
       {/* 3D Ambient WebGL Background Particles */}
       <Ambient3DBackground isDark={isDark} />
 

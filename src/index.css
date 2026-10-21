@@ -7,45 +7,45 @@
   font-weight: 300;
   color-scheme: light dark;
 
-  /* LIGHT MODE (Liquid Glass Apple style) */
-  --bg-base: #f0ebe3;
-  --glass-bg: rgba(255, 255, 255, 0.55);
-  --glass-bg-hover: rgba(255, 255, 255, 0.70);
-  --glass-border: rgba(255, 255, 255, 0.65);
-  --glass-border-hover: rgba(255, 255, 255, 0.85);
+  /* LIGHT MODE (Clean White + Emerald Green) */
+  --bg-base: #F8FAFC;
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-bg-hover: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border-hover: rgba(0, 0, 0, 0.14);
   --glass-blur: blur(24px) saturate(200%);
-  --glass-specular: 0 2px 0 0 rgba(255, 255, 255, 0.85) inset;
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --glass-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.12);
+  --glass-specular: 0 1px 0 0 rgba(255, 255, 255, 0.90) inset;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  --glass-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.08);
 
-  --text-primary: rgba(20, 16, 12, 0.92);
-  --text-secondary: rgba(20, 16, 12, 0.60);
-  --text-muted: rgba(20, 16, 12, 0.38);
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
 
-  --blob-1: #a7f3d0;
-  --blob-2: #c7d2fe;
-  --blob-3: #fde68a;
+  --blob-1: #10B981;
+  --blob-2: #05DF72;
+  --blob-3: #6EE7B7;
 }
 
 .dark {
-  /* DARK MODE (Liquid Glass standard) */
-  --bg-base: #0c1222;
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --glass-bg-hover: rgba(255, 255, 255, 0.13);
-  --glass-border: rgba(255, 255, 255, 0.12);
-  --glass-border-hover: rgba(255, 255, 255, 0.22);
+  /* DARK MODE (Deep Matte Black + Vibrant Emerald Green) */
+  --bg-base: #08090B;
+  --glass-bg: rgba(18, 21, 26, 0.78);
+  --glass-bg-hover: rgba(26, 30, 38, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.16);
   --glass-blur: blur(20px) saturate(180%);
-  --glass-specular: 0 1px 0 0 rgba(255, 255, 255, 0.20) inset;
-  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-  --glass-shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.50);
+  --glass-specular: 0 1px 0 0 rgba(255, 255, 255, 0.12) inset;
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.60);
+  --glass-shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.75);
 
-  --text-primary: rgba(255, 248, 240, 0.95);
-  --text-secondary: rgba(255, 235, 210, 0.65);
-  --text-muted: rgba(255, 220, 180, 0.40);
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
 
-  --blob-1: #D9FF62;
-  --blob-2: #72F6BD;
-  --blob-3: #A985FF;
+  --blob-1: #05DF72;
+  --blob-2: #10B981;
+  --blob-3: #047857;
 }
 
 body {

@@ -51,28 +51,31 @@ export const Dejung3DCoin: React.FC<Dejung3DCoinProps> = ({ isOverAllocated }) =
     canvas.height = 256;
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      // Background circle
-      ctx.fillStyle = '#10182D';
+      // Background circle (Dark Matte Black)
+      ctx.fillStyle = '#090B0E';
       ctx.beginPath();
       ctx.arc(128, 128, 120, 0, Math.PI * 2);
       ctx.fill();
 
-      // Outer gold/lime ring
+      // Outer emerald ring
       ctx.lineWidth = 14;
-      ctx.strokeStyle = isOverAllocated ? '#FF7D9C' : '#D9FF62';
+      ctx.strokeStyle = isOverAllocated ? '#FF5C7A' : '#05DF72';
       ctx.stroke();
 
-      // D Monogram
-      ctx.fillStyle = isOverAllocated ? '#FF7D9C' : '#D9FF62';
+      // D Monogram (Drawn upright with crisp font)
+      ctx.fillStyle = isOverAllocated ? '#FF5C7A' : '#05DF72';
       ctx.font = 'bold 130px Mitr, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText('D', 128, 134);
     }
     const coinTexture = new THREE.CanvasTexture(canvas);
+    // Rotate texture 180 degrees so 'D' is standing upright
+    coinTexture.center.set(0.5, 0.5);
+    coinTexture.rotation = Math.PI;
 
     const coinMat = new THREE.MeshStandardMaterial({
-      color: isOverAllocated ? 0xff477e : 0xd9ff62,
+      color: isOverAllocated ? 0xff477e : 0x05df72,
       metalness: 0.85,
       roughness: 0.25,
       map: coinTexture,
@@ -84,9 +87,9 @@ export const Dejung3DCoin: React.FC<Dejung3DCoinProps> = ({ isOverAllocated }) =
     // Outer Glow Ring
     const ringGeo = new THREE.TorusGeometry(2.65, 0.06, 16, 64);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: isOverAllocated ? 0xff477e : 0x72f6bd,
+      color: isOverAllocated ? 0xff477e : 0x10b981,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.85,
     });
     const ringMesh = new THREE.Mesh(ringGeo, ringMat);
     coinGroup.add(ringMesh);
@@ -96,14 +99,14 @@ export const Dejung3DCoin: React.FC<Dejung3DCoinProps> = ({ isOverAllocated }) =
     scene.add(ambientLight);
 
     const keyLight = new THREE.DirectionalLight(
-      isOverAllocated ? 0xff3b5f : 0xd9ff62,
+      isOverAllocated ? 0xff3b5f : 0x05df72,
       3.0
     );
     keyLight.position.set(5, 5, 5);
     scene.add(keyLight);
 
     const rimLight = new THREE.PointLight(
-      isOverAllocated ? 0xff85a1 : 0x72f6bd,
+      isOverAllocated ? 0xff85a1 : 0x10b981,
       4.0,
       15
     );
@@ -167,18 +170,18 @@ export const Dejung3DCoin: React.FC<Dejung3DCoinProps> = ({ isOverAllocated }) =
       time += 0.03;
 
       // Gentle floating bob
-      coinGroup.position.y = Math.sin(time) * 0.15;
+      coinGroup.position.y = Math.sin(time) * 0.12;
 
-      // Inertia & Continuous Spin
+      // Continuous Auto-Spin with Momentum
       if (!isDraggingRef.current) {
-        // Friction toward base speed
-        spinVelocityRef.current = THREE.MathUtils.lerp(spinVelocityRef.current, 0.015, 0.05);
+        // Base auto-spin speed (steady 0.024 rad/frame = smooth continuous 360 degree revolution)
+        spinVelocityRef.current = THREE.MathUtils.lerp(spinVelocityRef.current, 0.024, 0.04);
         coinGroup.rotation.y += spinVelocityRef.current;
       }
 
-      // Wobble tilt
-      coinGroup.rotation.x = Math.sin(time * 0.7) * 0.1;
-      coinGroup.rotation.z = Math.cos(time * 0.5) * 0.08;
+      // Elegant fixed 3D tilt with subtle dynamic wobble to display coin thickness and edge glow
+      coinGroup.rotation.x = 0.22 + Math.sin(time * 0.6) * 0.05;
+      coinGroup.rotation.z = Math.cos(time * 0.4) * 0.04;
 
       renderer.render(scene, camera);
     };
