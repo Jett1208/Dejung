@@ -70,9 +70,9 @@ export const Dejung3DCoin: React.FC<Dejung3DCoinProps> = ({ isOverAllocated }) =
       ctx.fillText('D', 128, 134);
     }
     const coinTexture = new THREE.CanvasTexture(canvas);
-    // Rotate texture 180 degrees so 'D' is standing upright
+    // Rotate texture 90 degrees (+Math.PI / 2) so 'D' is standing upright with vertical spine on left
     coinTexture.center.set(0.5, 0.5);
-    coinTexture.rotation = Math.PI;
+    coinTexture.rotation = Math.PI / 2;
 
     const coinMat = new THREE.MeshStandardMaterial({
       color: isOverAllocated ? 0xff477e : 0x05df72,

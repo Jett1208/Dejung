@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, Utensils, Fuel, Coffee, PiggyBank } from 'lucide-react';
+import { Plus, Utensils, Fuel, PiggyBank } from 'lucide-react';
 import type { AllocationItem, AllocationRule } from '../domain/types';
 
 interface QuickAddChipsProps {
@@ -20,13 +20,6 @@ export const QuickAddChips: React.FC<QuickAddChipsProps> = ({ onAdd }) => {
       icon: Fuel,
       rule: 'fixed' as AllocationRule,
       defaultVal: 1500,
-      isSavings: false,
-    },
-    {
-      label: 'ค่ากาแฟ',
-      icon: Coffee,
-      rule: 'daily' as AllocationRule,
-      defaultVal: 60,
       isSavings: false,
     },
     {
