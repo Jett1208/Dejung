@@ -27,17 +27,17 @@ export const CategoryList: React.FC<CategoryListProps> = ({
   );
 
   return (
-    <div className="bg-white/90 dark:bg-midnight-card/85 backdrop-blur-md rounded-2xl p-5 shadow-sm border border-slate-200/80 dark:border-midnight-border/80 mb-5 transition-colors">
+    <div className="glass-panel rounded-3xl p-5 mb-5">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <span className="w-5 h-5 rounded-full bg-emerald-600 dark:bg-brand-lime dark:text-slate-900 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+        <div className="flex items-center gap-2.5">
+          <span className="w-6 h-6 rounded-full bg-brand-lime text-slate-950 flex items-center justify-center text-xs font-medium shadow-xs">
             3
           </span>
           <Layers className="w-4 h-4 text-emerald-600 dark:text-brand-lime" />
-          <h2 className="text-base font-bold text-slate-900 dark:text-white">
-            รายการแบ่งจ่าย (Allocation Items)
+          <h2 className="text-base font-normal text-slate-900 dark:text-white">
+            รายการแบ่งจ่าย
           </h2>
-          <span className="text-xs bg-slate-100 dark:bg-midnight-950 text-slate-600 dark:text-slate-300 font-semibold px-2 py-0.5 rounded-full border border-slate-200/50 dark:border-midnight-border">
+          <span className="glass-pill text-xs text-slate-600 dark:text-slate-300 font-light px-2.5 py-0.5 rounded-full">
             {items.length} รายการ
           </span>
         </div>
@@ -48,12 +48,12 @@ export const CategoryList: React.FC<CategoryListProps> = ({
 
       {/* Categories Rows */}
       {items.length === 0 ? (
-        <div className="text-center py-8 px-4 border-2 border-dashed border-slate-200 dark:border-midnight-border rounded-2xl bg-slate-50/50 dark:bg-midnight-950/40">
+        <div className="text-center py-8 px-4 rounded-2xl border border-dashed border-slate-300 dark:border-white/10">
           <Inbox className="w-8 h-8 text-slate-300 dark:text-slate-600 mx-auto mb-2" />
-          <p className="text-sm font-bold text-slate-600 dark:text-slate-300 mb-1">
+          <p className="text-sm font-light text-slate-600 dark:text-slate-300 mb-1">
             ยังไม่มีรายการแบ่งจ่าย
           </p>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
+          <p className="text-xs text-slate-400 dark:text-slate-500 font-extralight mb-3">
             แตะปุ่มลัดด้านบน เช่น "+ ค่าข้าว" หรือ "+ ค่าน้ำมัน" เพื่อเริ่มเพิ่มรายการได้เลย
           </p>
           <button
@@ -66,7 +66,7 @@ export const CategoryList: React.FC<CategoryListProps> = ({
                 isSavings: false,
               })
             }
-            className="inline-flex items-center gap-1.5 px-3 py-2 bg-emerald-600 hover:bg-emerald-700 dark:bg-brand-lime dark:hover:bg-brand-mint text-white dark:text-slate-900 rounded-xl text-xs font-semibold shadow-xs transition"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-brand-lime hover:bg-brand-mint text-slate-950 rounded-full text-xs font-medium shadow-sm transition"
           >
             <PlusCircle className="w-3.5 h-3.5" />
             <span>เพิ่มรายการแรก</span>

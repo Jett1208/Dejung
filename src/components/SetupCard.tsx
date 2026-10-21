@@ -17,22 +17,22 @@ export const SetupCard: React.FC<SetupCardProps> = ({
   const quickDays = [30, 15, 7];
 
   return (
-    <div className="bg-white/90 dark:bg-midnight-card/85 backdrop-blur-md rounded-2xl p-5 shadow-sm border border-slate-200/80 dark:border-midnight-border/80 mb-5 transition-colors">
+    <div className="glass-panel rounded-3xl p-6 sm:p-7 mb-6">
       {/* Friendly Guide Banner */}
-      <div className="flex items-center gap-2 p-3 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-brand-mint border border-emerald-200/60 dark:border-emerald-800/40 rounded-xl mb-5 text-sm font-medium">
+      <div className="flex items-center gap-2 p-3 bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-2xl mb-6 text-xs sm:text-sm font-light text-slate-700 dark:text-[rgba(255,235,210,0.8)]">
         <Sparkles className="w-4 h-4 text-emerald-600 dark:text-brand-lime shrink-0" />
-        <span>วางแผนงบง่ายๆ ใน 3 ขั้นตอน: ใส่เงินก้อน ➔ ตั้งจำนวนวัน ➔ เพิ่มรายการแบ่งจ่าย</span>
+        <span>เริ่มต้นใน 3 ขั้นตอน: ใส่เงินก้อน ➔ ตั้งจำนวนวัน ➔ เพิ่มรายการแบ่งจ่าย</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Step 1: Total Funds */}
         <div>
-          <label className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
-            <span className="w-5 h-5 rounded-full bg-emerald-600 dark:bg-brand-lime dark:text-slate-900 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+          <label className="flex items-center gap-2 text-sm font-light text-slate-700 dark:text-[rgba(255,248,240,0.9)] mb-2">
+            <span className="w-5 h-5 rounded-full bg-slate-900 dark:bg-white/15 text-white flex items-center justify-center text-xs font-normal">
               1
             </span>
             <Wallet className="w-4 h-4 text-emerald-600 dark:text-brand-lime" />
-            <span>เงินก้อนตั้งต้น (Total Funds)</span>
+            <span>เงินก้อนตั้งต้น</span>
           </label>
           <div className="relative">
             <input
@@ -44,25 +44,25 @@ export const SetupCard: React.FC<SetupCardProps> = ({
                 const val = e.target.value === '' ? 0 : Number(e.target.value);
                 onTotalFundsChange(val);
               }}
-              className="w-full pl-4 pr-12 py-3 text-lg font-bold text-slate-800 dark:text-white bg-slate-50 dark:bg-midnight-950/90 border border-slate-200 dark:border-midnight-border rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:focus:ring-brand-lime focus:bg-white dark:focus:bg-midnight-950 transition"
+              className="glass-input w-full pl-5 pr-14 py-3 text-lg font-normal text-slate-900 dark:text-white"
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-slate-400">
+            <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-light text-slate-400 dark:text-[rgba(255,220,180,0.4)]">
               บาท
             </span>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+          <p className="text-[11px] font-extralight text-slate-400 dark:text-[rgba(255,220,180,0.4)] mt-1.5 ml-2">
             เงินเดือน หรือยอดเงินที่มีสำหรับจัดสรรในรอบนี้
           </p>
         </div>
 
         {/* Step 2: Budget Cycle Days */}
         <div>
-          <label className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
-            <span className="w-5 h-5 rounded-full bg-emerald-600 dark:bg-brand-lime dark:text-slate-900 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+          <label className="flex items-center gap-2 text-sm font-light text-slate-700 dark:text-[rgba(255,248,240,0.9)] mb-2">
+            <span className="w-5 h-5 rounded-full bg-slate-900 dark:bg-white/15 text-white flex items-center justify-center text-xs font-normal">
               2
             </span>
             <Calendar className="w-4 h-4 text-emerald-600 dark:text-brand-lime" />
-            <span>รอบเวลา (Budget Cycle)</span>
+            <span>รอบเวลา</span>
           </label>
           <div className="flex gap-2">
             <div className="relative flex-1">
@@ -75,9 +75,9 @@ export const SetupCard: React.FC<SetupCardProps> = ({
                   const val = e.target.value === '' ? 1 : Number(e.target.value);
                   onCycleDaysChange(val);
                 }}
-                className="w-full pl-4 pr-10 py-3 text-lg font-bold text-slate-800 dark:text-white bg-slate-50 dark:bg-midnight-950/90 border border-slate-200 dark:border-midnight-border rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:focus:ring-brand-lime focus:bg-white dark:focus:bg-midnight-950 transition"
+                className="glass-input w-full pl-5 pr-12 py-3 text-lg font-normal text-slate-900 dark:text-white"
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-slate-400">
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-light text-slate-400 dark:text-[rgba(255,220,180,0.4)]">
                 วัน
               </span>
             </div>
@@ -86,17 +86,17 @@ export const SetupCard: React.FC<SetupCardProps> = ({
                 key={days}
                 type="button"
                 onClick={() => onCycleDaysChange(days)}
-                className={`px-3 py-2 text-xs font-bold rounded-xl transition shrink-0 ${
+                className={`px-3.5 py-2 text-xs rounded-full transition shrink-0 ${
                   cycleDays === days
-                    ? 'bg-emerald-600 dark:bg-brand-lime text-white dark:text-slate-900 shadow-sm'
-                    : 'bg-slate-100 dark:bg-midnight-950/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-midnight-border'
+                    ? 'bg-slate-900 dark:bg-brand-lime text-white dark:text-slate-900 font-normal shadow-sm'
+                    : 'glass-pill font-extralight'
                 }`}
               >
                 {days} วัน
               </button>
             ))}
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+          <p className="text-[11px] font-extralight text-slate-400 dark:text-[rgba(255,220,180,0.4)] mt-1.5 ml-2">
             ใช้คำนวณค่าใช้จ่ายรายวันและเงินเฉลี่ยต่อวัน
           </p>
         </div>

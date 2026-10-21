@@ -10,11 +10,11 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons.svg'],
       manifest: {
-        name: 'Dejung - Money Allocation Planner',
+        name: 'Dejung — ผู้ช่วยจัดสรรงบประมาณ',
         short_name: 'Dejung',
-        description: 'เว็บจัดสรรงบประมาณอัจฉริยะแบบแบ่งเปอร์เซ็นต์และรายวัน',
-        theme_color: '#10b981',
-        background_color: '#f8fafc',
+        description: 'ผู้ช่วยจัดสรรงบประมาณแบบแบ่งเปอร์เซ็นต์และรายวัน',
+        theme_color: '#0A0D14',
+        background_color: '#0A0D14',
         display: 'standalone',
         orientation: 'portrait',
         icons: [

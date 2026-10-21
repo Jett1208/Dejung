@@ -3,8 +3,49 @@
 @tailwind utilities;
 
 :root {
-  font-family: 'Mitr', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Mitr', system-ui, -apple-system, sans-serif;
+  font-weight: 300;
   color-scheme: light dark;
+
+  /* LIGHT MODE (Liquid Glass Apple style) */
+  --bg-base: #f0ebe3;
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-hover: rgba(255, 255, 255, 0.70);
+  --glass-border: rgba(255, 255, 255, 0.65);
+  --glass-border-hover: rgba(255, 255, 255, 0.85);
+  --glass-blur: blur(24px) saturate(200%);
+  --glass-specular: 0 2px 0 0 rgba(255, 255, 255, 0.85) inset;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --glass-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.12);
+
+  --text-primary: rgba(20, 16, 12, 0.92);
+  --text-secondary: rgba(20, 16, 12, 0.60);
+  --text-muted: rgba(20, 16, 12, 0.38);
+
+  --blob-1: #a7f3d0;
+  --blob-2: #c7d2fe;
+  --blob-3: #fde68a;
+}
+
+.dark {
+  /* DARK MODE (Liquid Glass standard) */
+  --bg-base: #0c1222;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-bg-hover: rgba(255, 255, 255, 0.13);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-hover: rgba(255, 255, 255, 0.22);
+  --glass-blur: blur(20px) saturate(180%);
+  --glass-specular: 0 1px 0 0 rgba(255, 255, 255, 0.20) inset;
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  --glass-shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.50);
+
+  --text-primary: rgba(255, 248, 240, 0.95);
+  --text-secondary: rgba(255, 235, 210, 0.65);
+  --text-muted: rgba(255, 220, 180, 0.40);
+
+  --blob-1: #D9FF62;
+  --blob-2: #72F6BD;
+  --blob-3: #A985FF;
 }
 
 body {
@@ -12,9 +53,123 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-base);
 }
 
-/* Glassmorphism utility */
-.glass-card {
-  @apply bg-white/90 dark:bg-midnight-card/85 backdrop-blur-md border border-slate-200/80 dark:border-midnight-border/80 shadow-sm;
+/* Authentic Glassmorphism Components */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-specular), var(--glass-shadow);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease,
+              background 0.25s ease,
+              border-color 0.25s ease;
+}
+
+.glass-panel:hover {
+  box-shadow: var(--glass-specular), var(--glass-shadow-hover);
+}
+
+.glass-pill {
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-specular);
+  border-radius: 9999px;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.2s ease,
+              border-color 0.2s ease;
+}
+
+.glass-pill:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-1.5px);
+}
+
+.glass-pill:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 9999px;
+  box-shadow: var(--glass-specular);
+  outline: none;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08), var(--glass-specular);
+}
+
+/* Animated Luminous Blobs */
+.blob-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -20;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform;
+  animation: blob-float 12s ease-in-out infinite;
+}
+
+.blob-1 {
+  width: 550px;
+  height: 550px;
+  background: var(--blob-1);
+  top: -120px;
+  left: -120px;
+  opacity: 0.35;
+}
+
+.blob-2 {
+  width: 480px;
+  height: 480px;
+  background: var(--blob-2);
+  bottom: -100px;
+  right: -100px;
+  opacity: 0.30;
+  animation-delay: -5s;
+}
+
+.blob-3 {
+  width: 380px;
+  height: 380px;
+  background: var(--blob-3);
+  top: 40%;
+  left: 35%;
+  opacity: 0.22;
+  animation-delay: -8s;
+}
+
+@keyframes blob-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(35px, -35px) scale(1.05); }
+  66%      { transform: translate(-25px, 25px) scale(0.96); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .blob {
+    animation: none;
+  }
 }

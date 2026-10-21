@@ -210,10 +210,10 @@ export const Dejung3DCoin: React.FC<Dejung3DCoinProps> = ({ isOverAllocated }) =
     <div className="flex flex-col items-center justify-center">
       <div
         ref={mountRef}
-        title="แตะหรือลากเพื่อหมุนเหรียญ 3D เล่น"
+        title="แตะหรือลากเพื่อหมุนเหรียญ 3D"
         className="w-28 h-28 cursor-grab active:cursor-grabbing touch-none select-none transition-transform hover:scale-105"
       />
-      <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 mt-0.5">
+      <span className="text-[10px] font-extralight text-slate-400 dark:text-slate-500 mt-0.5">
         แตะลากหมุนเหรียญ 3D
       </span>
     </div>
