@@ -112,6 +112,17 @@ body {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08), var(--glass-specular);
 }
 
+/* Suppress default number input spinners across all browsers */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 /* Animated Luminous Blobs */
 .blob-container {
   position: fixed;

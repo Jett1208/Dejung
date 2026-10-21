@@ -64,39 +64,47 @@ export const SetupCard: React.FC<SetupCardProps> = ({
             <Calendar className="w-4 h-4 text-emerald-600 dark:text-brand-lime" />
             <span>รอบเวลา</span>
           </label>
-          <div className="flex gap-2">
-            <div className="relative flex-1">
-              <input
-                type="number"
-                inputMode="decimal"
-                placeholder="เช่น 30"
-                value={cycleDays === 0 ? '' : cycleDays}
-                onChange={(e) => {
-                  const val = e.target.value === '' ? 1 : Number(e.target.value);
-                  onCycleDaysChange(val);
-                }}
-                className="glass-input w-full pl-5 pr-12 py-3 text-lg font-normal text-slate-900 dark:text-white"
-              />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-light text-slate-400 dark:text-[rgba(255,220,180,0.4)]">
-                วัน
-              </span>
-            </div>
+
+          {/* Full-width Input for Days */}
+          <div className="relative mb-2.5">
+            <input
+              type="number"
+              inputMode="decimal"
+              placeholder="เช่น 30"
+              value={cycleDays === 0 ? '' : cycleDays}
+              onChange={(e) => {
+                const val = e.target.value === '' ? 1 : Number(e.target.value);
+                onCycleDaysChange(val);
+              }}
+              className="glass-input w-full pl-5 pr-14 py-3 text-lg font-normal text-slate-900 dark:text-white"
+            />
+            <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-light text-slate-400 dark:text-[rgba(255,220,180,0.4)]">
+              วัน
+            </span>
+          </div>
+
+          {/* Quick Preset Pills Row */}
+          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+            <span className="text-[11px] font-extralight text-slate-500 dark:text-slate-400">
+              ปุ่มลัด:
+            </span>
             {quickDays.map((days) => (
               <button
                 key={days}
                 type="button"
                 onClick={() => onCycleDaysChange(days)}
-                className={`px-3.5 py-2 text-xs rounded-full transition shrink-0 ${
+                className={`px-3 py-1 text-xs rounded-full transition shrink-0 ${
                   cycleDays === days
-                    ? 'bg-slate-900 dark:bg-brand-lime text-white dark:text-slate-900 font-normal shadow-sm'
-                    : 'glass-pill font-extralight'
+                    ? 'bg-brand-lime text-slate-950 font-medium shadow-xs'
+                    : 'glass-pill font-light text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 {days} วัน
               </button>
             ))}
           </div>
-          <p className="text-[11px] font-extralight text-slate-400 dark:text-[rgba(255,220,180,0.4)] mt-1.5 ml-2">
+
+          <p className="text-[11px] font-extralight text-slate-400 dark:text-[rgba(255,220,180,0.4)] mt-1 ml-2">
             ใช้คำนวณค่าใช้จ่ายรายวันและเงินเฉลี่ยต่อวัน
           </p>
         </div>
