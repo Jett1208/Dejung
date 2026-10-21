@@ -1,4 +1,4 @@
-import { BudgetState, CalculationSummary, ItemCalculation } from './types';
+import type { BudgetState, CalculationSummary, ItemCalculation } from './types';
 
 export function calculateBudget(state: BudgetState): CalculationSummary {
   const cycleDays = Math.max(1, Number(state.cycleDays) || 1);
@@ -11,7 +11,7 @@ export function calculateBudget(state: BudgetState): CalculationSummary {
 
   const itemSummaries: ItemCalculation[] = state.items.map((item) => {
     const rawVal = Number(item.value) || 0;
-    let calculatedAmount = 0;
+    let calculatedAmount: number;
 
     switch (item.rule) {
       case 'daily':

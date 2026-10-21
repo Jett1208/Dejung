@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { WalletCards, RotateCcw, FileText, Check, AlertTriangle } from 'lucide-react';
+import { WalletCards, RotateCcw, FileText, AlertTriangle } from 'lucide-react';
 
 interface HeaderProps {
   onReset: () => void;

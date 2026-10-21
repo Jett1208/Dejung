@@ -1,6 +1,6 @@
 import React from 'react';
 import { Plus, Utensils, Fuel, Coffee, PiggyBank } from 'lucide-react';
-import { AllocationItem, AllocationRule } from '../domain/types';
+import type { AllocationItem, AllocationRule } from '../domain/types';
 
 interface QuickAddChipsProps {
   onAdd: (item: Omit<AllocationItem, 'id'>) => void;

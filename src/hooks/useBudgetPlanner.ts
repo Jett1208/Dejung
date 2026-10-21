@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { BudgetState, AllocationItem, CalculationSummary } from '../domain/types';
+import type { BudgetState, AllocationItem, CalculationSummary } from '../domain/types';
 import { calculateBudget } from '../domain/calculator';
 
 const STORAGE_KEY = 'dejung_budget_state_v1';
@@ -109,12 +109,14 @@ export function useBudgetPlanner() {
         totalFunds: Math.max(0, Number(parsed.totalFunds) || 0),
         cycleDays: Math.max(1, Number(parsed.cycleDays) || 30),
         items: Array.isArray(parsed.items)
-          ? parsed.items.map((it: any) => ({
-              id: it.id || `item_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-              name: String(it.name || ''),
-              rule: (['daily', 'fixed', 'percentage'].includes(it.rule) ? it.rule : 'fixed') as any,
-              value: Number(it.value) || 0,
-              isSavings: Boolean(it.isSavings),
+          ? parsed.items.map((it: Record<string, unknown>) => ({
+              id: typeof it?.id === 'string' ? it.id : `item_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+              name: String(it?.name || ''),
+              rule: (['daily', 'fixed', 'percentage'].includes(String(it?.rule))
+                ? it.rule
+                : 'fixed') as AllocationItem['rule'],
+              value: Number(it?.value) || 0,
+              isSavings: Boolean(it?.isSavings),
             }))
           : [],
         savingsTarget: Math.max(0, Number(parsed.savingsTarget) || 0),

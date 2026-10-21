@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layers, PlusCircle, Inbox } from 'lucide-react';
-import { AllocationItem, ItemCalculation } from '../domain/types';
+import type { AllocationItem, ItemCalculation } from '../domain/types';
 import { CategoryItem } from './CategoryItem';
 import { QuickAddChips } from './QuickAddChips';
 
@@ -8,7 +8,7 @@ interface CategoryListProps {
   items: AllocationItem[];
   itemSummaries: ItemCalculation[];
   cycleDays: number;
-  totalFunds: number;
+  totalFunds?: number;
   onAddItem: (item: Omit<AllocationItem, 'id'>) => void;
   onUpdateItem: (id: string, updates: Partial<AllocationItem>) => void;
   onRemoveItem: (id: string) => void;
@@ -18,7 +18,6 @@ export const CategoryList: React.FC<CategoryListProps> = ({
   items,
   itemSummaries,
   cycleDays,
-  totalFunds,
   onAddItem,
   onUpdateItem,
   onRemoveItem,

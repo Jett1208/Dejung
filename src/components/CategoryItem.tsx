@@ -1,6 +1,6 @@
 import React from 'react';
-import { Trash2, PiggyBank, Sparkles } from 'lucide-react';
-import { AllocationItem, AllocationRule, ItemCalculation } from '../domain/types';
+import { Trash2, PiggyBank } from 'lucide-react';
+import type { AllocationItem, AllocationRule, ItemCalculation } from '../domain/types';
 
 interface CategoryItemProps {
   item: AllocationItem;
