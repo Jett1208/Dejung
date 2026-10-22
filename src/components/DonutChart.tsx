@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { AllocationItem, ItemCalculation } from '../domain/types';
+import { formatCompactNumber, formatFullCurrency } from '../utils/numberFormat';
 
 interface DonutChartProps {
   items: AllocationItem[];
@@ -134,8 +135,11 @@ export const DonutChart: React.FC<DonutChartProps> = ({
               <span className="text-[11px] font-light text-slate-500 dark:text-slate-400 truncate max-w-[110px]">
                 {activeSlice.name}
               </span>
-              <span className="text-xl font-medium text-slate-900 dark:text-white leading-tight">
-                ฿{activeSlice.amount.toLocaleString()}
+              <span
+                className="text-xl font-medium text-slate-900 dark:text-white leading-tight"
+                title={formatFullCurrency(activeSlice.amount)}
+              >
+                ฿{formatCompactNumber(activeSlice.amount)}
               </span>
               <span className="text-[11px] text-emerald-600 dark:text-brand-lime font-medium">
                 {activeSlice.percent}%
@@ -180,7 +184,12 @@ export const DonutChart: React.FC<DonutChartProps> = ({
                 <span className="font-light text-slate-700 dark:text-slate-200 truncate">{slice.name}</span>
               </div>
               <div className="text-right shrink-0">
-                <span className="font-medium text-slate-900 dark:text-white">฿{slice.amount.toLocaleString()}</span>
+                <span
+                  className="font-medium text-slate-900 dark:text-white"
+                  title={formatFullCurrency(slice.amount)}
+                >
+                  ฿{formatCompactNumber(slice.amount)}
+                </span>
                 <span className="text-slate-400 dark:text-slate-500 ml-1.5 text-[11px] font-extralight">({slice.percent}%)</span>
               </div>
             </div>
@@ -194,8 +203,11 @@ export const DonutChart: React.FC<DonutChartProps> = ({
               <span className="font-light">รอจัดสรร</span>
             </div>
             <div className="text-right">
-              <span className="font-medium text-slate-600 dark:text-slate-400">
-                ฿{unallocatedBalance.toLocaleString()}
+              <span
+                className="font-medium text-slate-600 dark:text-slate-400"
+                title={formatFullCurrency(unallocatedBalance)}
+              >
+                ฿{formatCompactNumber(unallocatedBalance)}
               </span>
               <span className="text-slate-400 dark:text-slate-500 ml-1.5 text-[11px] font-extralight">
                 ({Math.round(unallocatedPercent)}%)

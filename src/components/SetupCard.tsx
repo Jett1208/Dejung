@@ -1,5 +1,6 @@
 import React from 'react';
 import { Wallet, Calendar, Sparkles } from 'lucide-react';
+import { CompactNumberInput } from './CompactNumberInput';
 
 interface SetupCardProps {
   totalFunds: number;
@@ -34,22 +35,13 @@ export const SetupCard: React.FC<SetupCardProps> = ({
             <Wallet className="w-4 h-4 text-emerald-600 dark:text-brand-lime" />
             <span>เงินก้อนตั้งต้น</span>
           </label>
-          <div className="relative">
-            <input
-              type="number"
-              inputMode="decimal"
-              placeholder="เช่น 25,000"
-              value={totalFunds === 0 ? '' : totalFunds}
-              onChange={(e) => {
-                const val = e.target.value === '' ? 0 : Number(e.target.value);
-                onTotalFundsChange(val);
-              }}
-              className="glass-input w-full pl-5 pr-14 py-3 text-lg font-normal text-slate-900 dark:text-white"
-            />
-            <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-light text-slate-400 dark:text-[rgba(255,220,180,0.4)]">
-              บาท
-            </span>
-          </div>
+          <CompactNumberInput
+            value={totalFunds}
+            onChange={onTotalFundsChange}
+            placeholder="เช่น 25,000"
+            unit="บาท"
+            className="glass-input w-full pl-5 pr-14 py-3 text-lg font-normal text-slate-900 dark:text-white"
+          />
           <p className="text-[11px] font-extralight text-slate-400 dark:text-[rgba(255,220,180,0.4)] mt-1.5 ml-2">
             เงินเดือน หรือยอดเงินที่มีสำหรับจัดสรรในรอบนี้
           </p>
@@ -66,21 +58,15 @@ export const SetupCard: React.FC<SetupCardProps> = ({
           </label>
 
           {/* Full-width Input for Days */}
-          <div className="relative mb-2.5">
-            <input
-              type="number"
-              inputMode="decimal"
+          <div className="mb-2.5">
+            <CompactNumberInput
+              value={cycleDays}
+              onChange={onCycleDaysChange}
               placeholder="เช่น 30"
-              value={cycleDays === 0 ? '' : cycleDays}
-              onChange={(e) => {
-                const val = e.target.value === '' ? 1 : Number(e.target.value);
-                onCycleDaysChange(val);
-              }}
+              unit="วัน"
+              min={1}
               className="glass-input w-full pl-5 pr-14 py-3 text-lg font-normal text-slate-900 dark:text-white"
             />
-            <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-light text-slate-400 dark:text-[rgba(255,220,180,0.4)]">
-              วัน
-            </span>
           </div>
 
           {/* Quick Preset Pills Row */}

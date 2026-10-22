@@ -9,6 +9,7 @@ import {
 import type { CalculationSummary, AllocationItem } from '../domain/types';
 import { DonutChart } from './DonutChart';
 import { Dejung3DCoin } from './Dejung3DCoin';
+import { formatCompactNumber, formatFullCurrency } from '../utils/numberFormat';
 
 interface SummaryDashboardProps {
   summary: CalculationSummary;
@@ -21,6 +22,14 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, ite
     ? Math.round((summary.totalAllocated / summary.totalFunds) * 100)
     : 0;
 
+  const balanceStr = `${summary.isOverAllocated ? '-' : ''}฿${Math.abs(summary.unallocatedBalance).toLocaleString()}`;
+  const balanceFontSize =
+    balanceStr.length <= 8
+      ? 'text-3xl sm:text-4xl'
+      : balanceStr.length <= 11
+      ? 'text-2xl sm:text-3xl'
+      : 'text-xl sm:text-2xl';
+
   return (
     <div className="space-y-4">
       {/* Over-allocation warning banner */}
@@ -28,8 +37,11 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, ite
         <div className="glass-panel border-rose-500/40 rounded-3xl p-4 flex items-start gap-3 text-rose-800 dark:text-rose-200 animate-pulse">
           <AlertTriangle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
           <div>
-            <h4 className="text-sm font-normal text-rose-700 dark:text-rose-300">
-              จัดสรรเงินเกินงบไป ฿{summary.overAllocatedAmount.toLocaleString()} บาท ({percentAllocated}%)
+            <h4
+              className="text-sm font-normal text-rose-700 dark:text-rose-300"
+              title={formatFullCurrency(summary.overAllocatedAmount)}
+            >
+              จัดสรรเงินเกินงบไป ฿{formatCompactNumber(summary.overAllocatedAmount)} บาท ({percentAllocated}%)
             </h4>
             <p className="text-xs text-rose-600/80 dark:text-rose-400/80 font-extralight mt-0.5">
               ยอดรวมรายการจัดสรรสูงกว่าเงินก้อนตั้งต้น กรุณาปรับลดจำนวนเงินในรายการเพื่อรักษาสมดุล
@@ -70,13 +82,14 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, ite
 
         {/* Balance amount + 3D Coin Row */}
         <div className="flex items-center justify-between gap-4">
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <div
-              className={`text-3xl sm:text-4xl font-normal tracking-tight leading-none mb-3 ${
+              title={formatFullCurrency(summary.unallocatedBalance)}
+              className={`${balanceFontSize} font-normal tracking-tight leading-none mb-3 break-all ${
                 summary.isOverAllocated ? 'text-rose-500' : 'text-slate-900 dark:text-white'
               }`}
             >
-              {summary.isOverAllocated ? '-' : ''}฿{Math.abs(summary.unallocatedBalance).toLocaleString()}
+              {balanceStr}
             </div>
 
             {/* Progress Bar of Funds */}
@@ -90,8 +103,12 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, ite
             </div>
 
             <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500 font-extralight">
-              <span>จัดสรรแล้ว ฿{summary.totalAllocated.toLocaleString()} ({percentAllocated}%)</span>
-              <span>จากเงินก้อน ฿{summary.totalFunds.toLocaleString()}</span>
+              <span title={formatFullCurrency(summary.totalAllocated)}>
+                จัดสรรแล้ว ฿{formatCompactNumber(summary.totalAllocated)} ({percentAllocated}%)
+              </span>
+              <span title={formatFullCurrency(summary.totalFunds)}>
+                จากเงินก้อน ฿{formatCompactNumber(summary.totalFunds)}
+              </span>
             </div>
           </div>
 
@@ -117,11 +134,14 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, ite
           </span>
         </div>
 
-        <div className="text-2xl sm:text-3xl font-normal text-emerald-600 dark:text-brand-lime mb-1.5">
+        <div
+          className="text-2xl sm:text-3xl font-normal text-emerald-600 dark:text-brand-lime mb-1.5"
+          title={formatFullCurrency(summary.freeDailyAllowance)}
+        >
           {summary.isOverAllocated ? (
             <span className="text-rose-400 text-xl font-normal">0 ฿/วัน (เกินงบ)</span>
           ) : (
-            `฿${Math.round(summary.freeDailyAllowance).toLocaleString()} บ./วัน`
+            `฿${formatCompactNumber(Math.round(summary.freeDailyAllowance))} บ./วัน`
           )}
         </div>
 

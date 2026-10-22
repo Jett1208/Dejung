@@ -1,6 +1,8 @@
 import React from 'react';
 import { Trash2, PiggyBank } from 'lucide-react';
 import type { AllocationItem, AllocationRule, ItemCalculation } from '../domain/types';
+import { CompactNumberInput } from './CompactNumberInput';
+import { formatCompactNumber, formatFullCurrency } from '../utils/numberFormat';
 
 interface CategoryItemProps {
   item: AllocationItem;
@@ -94,27 +96,23 @@ export const CategoryItem: React.FC<CategoryItemProps> = ({
 
         {/* Value input */}
         <div className="sm:col-span-6 flex items-center gap-3">
-          <div className="relative flex-1">
-            <input
-              type="number"
-              inputMode="decimal"
-              value={item.value === 0 ? '' : item.value}
-              onChange={(e) => {
-                const val = e.target.value === '' ? 0 : Number(e.target.value);
-                onUpdate({ value: val });
-              }}
+          <div className="flex-1 min-w-0">
+            <CompactNumberInput
+              value={item.value}
+              onChange={(value) => onUpdate({ value })}
               placeholder="0"
+              unit={item.rule === 'daily' ? 'บ./วัน' : item.rule === 'percentage' ? '%' : 'บาท'}
               className="glass-input w-full pl-4 pr-14 py-2 font-normal text-slate-800 dark:text-white text-base transition"
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-light text-slate-400">
-              {item.rule === 'daily' ? 'บ./วัน' : item.rule === 'percentage' ? '%' : 'บาท'}
-            </span>
           </div>
 
           {/* Computed amount badge */}
-          <div className="shrink-0 text-right min-w-[90px]">
+          <div
+            className="shrink-0 text-right min-w-[70px] cursor-help"
+            title={formatFullCurrency(calculatedAmount)}
+          >
             <div className="text-sm font-medium text-slate-900 dark:text-white">
-              = ฿{calculatedAmount.toLocaleString()}
+              = ฿{formatCompactNumber(calculatedAmount)}
             </div>
             <div className="text-[11px] font-extralight text-slate-400 dark:text-slate-500">
               {percentage}% {item.rule === 'daily' ? `(${cycleDays} วัน)` : ''}

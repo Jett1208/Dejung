@@ -3,6 +3,7 @@ import { ChevronUp, Coins, X, PieChart, Sparkles } from 'lucide-react';
 import type { CalculationSummary, AllocationItem } from '../domain/types';
 import { DonutChart } from './DonutChart';
 import { Dejung3DCoin } from './Dejung3DCoin';
+import { formatCompactNumber, formatFullCurrency } from '../utils/numberFormat';
 
 interface StickyBottomBarProps {
   summary: CalculationSummary;
@@ -44,11 +45,12 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
                 )}
               </div>
               <div
+                title={formatFullCurrency(summary.unallocatedBalance)}
                 className={`text-lg font-normal leading-tight ${
                   summary.isOverAllocated ? 'text-rose-500' : 'text-slate-900 dark:text-white'
                 }`}
               >
-                {summary.isOverAllocated ? '-' : ''}฿{Math.abs(summary.unallocatedBalance).toLocaleString()}
+                {summary.isOverAllocated ? '-' : ''}฿{formatCompactNumber(Math.abs(summary.unallocatedBalance))}
               </div>
             </div>
           </div>
@@ -63,11 +65,12 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
                 ใช้อิสระได้
               </div>
               <div
+                title={formatFullCurrency(summary.freeDailyAllowance)}
                 className={`text-xs font-normal ${
                   summary.isOverAllocated ? 'text-rose-500' : 'text-emerald-600 dark:text-brand-lime'
                 }`}
               >
-                {summary.isOverAllocated ? '0 ฿/วัน (เกินงบ)' : `฿${Math.round(summary.freeDailyAllowance)}/วัน`}
+                {summary.isOverAllocated ? '0 ฿/วัน (เกินงบ)' : `฿${formatCompactNumber(Math.round(summary.freeDailyAllowance))}/วัน`}
               </div>
             </div>
 
@@ -122,20 +125,24 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
                   เงินคงเหลือ
                 </span>
                 <p
+                  title={formatFullCurrency(summary.unallocatedBalance)}
                   className={`text-lg font-normal ${
                     summary.isOverAllocated ? 'text-rose-500' : 'text-slate-900 dark:text-white'
                   }`}
                 >
-                  {summary.isOverAllocated ? '-' : ''}฿{Math.abs(summary.unallocatedBalance).toLocaleString()}
+                  {summary.isOverAllocated ? '-' : ''}฿{formatCompactNumber(Math.abs(summary.unallocatedBalance))}
                 </p>
               </div>
 
               <div className="p-3.5 rounded-2xl glass-panel">
                 <span className="text-[11px] font-light text-slate-400">ใช้อิสระเฉลี่ย</span>
-                <p className="text-lg font-normal text-emerald-600 dark:text-brand-lime">
+                <p
+                  title={formatFullCurrency(summary.freeDailyAllowance)}
+                  className="text-lg font-normal text-emerald-600 dark:text-brand-lime"
+                >
                   {summary.isOverAllocated
                     ? '0 ฿/วัน (เกินงบ)'
-                    : `฿${Math.round(summary.freeDailyAllowance)}/วัน`}
+                    : `฿${formatCompactNumber(Math.round(summary.freeDailyAllowance))}/วัน`}
                 </p>
               </div>
             </div>

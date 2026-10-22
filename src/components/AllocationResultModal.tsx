@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Download, Copy, Check, Sparkles, AlertTriangle, Layers, Calendar, Wallet } from 'lucide-react';
 import type { AllocationItem, CalculationSummary, ItemCalculation } from '../domain/types';
 import { generateSummaryText, downloadSlipImage } from '../utils/slipGenerator';
+import { formatCompactNumber, formatFullCurrency } from '../utils/numberFormat';
 
 interface AllocationResultModalProps {
   isOpen: boolean;
@@ -102,7 +103,12 @@ export const AllocationResultModal: React.FC<AllocationResultModalProps> = ({
           <div className="glass-panel border-rose-500/40 rounded-2xl p-3.5 mb-4 flex items-start gap-2.5 text-rose-800 dark:text-rose-200">
             <AlertTriangle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
             <div className="text-xs">
-              <span className="font-normal block">จัดสรรเกินงบไป ฿{summary.overAllocatedAmount.toLocaleString()} บาท</span>
+              <span
+                className="font-normal block"
+                title={formatFullCurrency(summary.overAllocatedAmount)}
+              >
+                จัดสรรเกินงบไป ฿{formatCompactNumber(summary.overAllocatedAmount)} บาท
+              </span>
               <span className="font-extralight text-rose-600/80 dark:text-rose-400/80">
                 แนะนำให้ปรับลดรายการลงเพื่อให้มีเงินกินใช้อิสระต่อวัน
               </span>
@@ -117,8 +123,11 @@ export const AllocationResultModal: React.FC<AllocationResultModalProps> = ({
               <Wallet className="w-3 h-3 text-emerald-600 dark:text-brand-lime" />
               เงินก้อนตั้งต้น
             </span>
-            <span className="text-sm sm:text-base font-normal text-slate-900 dark:text-white">
-              ฿{totalFunds.toLocaleString()}
+            <span
+              className="text-sm sm:text-base font-normal text-slate-900 dark:text-white"
+              title={formatFullCurrency(totalFunds)}
+            >
+              ฿{formatCompactNumber(totalFunds)}
             </span>
           </div>
           <div>
@@ -135,8 +144,11 @@ export const AllocationResultModal: React.FC<AllocationResultModalProps> = ({
               <Layers className="w-3 h-3 text-emerald-600 dark:text-brand-lime" />
               แบ่งจ่ายแล้ว
             </span>
-            <span className="text-sm sm:text-base font-normal text-slate-900 dark:text-white">
-              ฿{summary.totalAllocated.toLocaleString()}
+            <span
+              className="text-sm sm:text-base font-normal text-slate-900 dark:text-white"
+              title={formatFullCurrency(summary.totalAllocated)}
+            >
+              ฿{formatCompactNumber(summary.totalAllocated)}
             </span>
           </div>
         </div>
@@ -154,20 +166,24 @@ export const AllocationResultModal: React.FC<AllocationResultModalProps> = ({
           </div>
 
           <div className="flex items-baseline justify-between gap-3">
-            <div className="text-2xl sm:text-3xl font-medium text-emerald-600 dark:text-brand-lime">
+            <div
+              className="text-2xl sm:text-3xl font-medium text-emerald-600 dark:text-brand-lime"
+              title={formatFullCurrency(summary.freeDailyAllowance)}
+            >
               {summary.isOverAllocated ? (
                 <span className="text-rose-500 text-xl font-normal">0 ฿/วัน</span>
               ) : (
-                `฿${Math.round(summary.freeDailyAllowance).toLocaleString()} บ./วัน`
+                `฿${formatCompactNumber(Math.round(summary.freeDailyAllowance))} บ./วัน`
               )}
             </div>
 
             <div
+              title={formatFullCurrency(summary.unallocatedBalance)}
               className={`text-base sm:text-lg font-normal ${
                 summary.isOverAllocated ? 'text-rose-500' : 'text-slate-900 dark:text-white'
               }`}
             >
-              {summary.isOverAllocated ? '-' : ''}฿{Math.abs(summary.unallocatedBalance).toLocaleString()}
+              {summary.isOverAllocated ? '-' : ''}฿{formatCompactNumber(Math.abs(summary.unallocatedBalance))}
             </div>
           </div>
 
@@ -217,8 +233,11 @@ export const AllocationResultModal: React.FC<AllocationResultModalProps> = ({
                         ({ruleText}){item.isSavings ? ' • ออม' : ''}
                       </span>
                     </div>
-                    <span className="font-normal text-slate-900 dark:text-white shrink-0">
-                      ฿{calc.toLocaleString()}
+                    <span
+                      className="font-normal text-slate-900 dark:text-white shrink-0"
+                      title={formatFullCurrency(calc)}
+                    >
+                      ฿{formatCompactNumber(calc)}
                     </span>
                   </div>
                 );
