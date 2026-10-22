@@ -16,6 +16,8 @@ describe('Header Component', () => {
 
     expect(screen.getByText('Dejung')).toBeInTheDocument();
     expect(screen.queryByText(/ผู้ช่วยจัดสรรงบประมาณ/i)).toBeNull();
+    const headerElem = screen.getByRole('banner');
+    expect(headerElem.className).toContain('sticky');
   });
 
   it('triggers onOpenSettings when settings button is clicked', () => {

@@ -67,11 +67,11 @@ export function App() {
   const toggleTheme = () => setIsDark((prev) => !prev);
 
   return (
-    <div className="min-h-screen bg-slate-50/70 dark:bg-black/25 text-slate-800 dark:text-white pb-28 lg:pb-16 font-sans relative selection:bg-brand-lime selection:text-slate-950 transition-colors duration-300">
+    <div className="min-h-screen text-slate-800 dark:text-white pt-[max(0.75rem,env(safe-area-inset-top))] pb-[max(7rem,calc(env(safe-area-inset-bottom)+5.5rem))] lg:pb-[max(3rem,calc(env(safe-area-inset-bottom)+2rem))] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] font-sans relative selection:bg-brand-lime selection:text-slate-950 transition-colors duration-300">
       {/* 3D Ambient WebGL Background Particles (Toggleable via Settings) */}
       {settings.enable3DBackground && <Ambient3DBackground isDark={isDark} />}
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         {/* Header with Gen Z Logo & Theme / Settings Toggle */}
         <Header
           isDark={isDark}

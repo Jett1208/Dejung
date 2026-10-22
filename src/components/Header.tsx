@@ -25,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <header className="flex items-center justify-between py-4 px-4 sm:px-6 mb-7 glass-panel rounded-full">
+      <header className="flex items-center justify-between py-3.5 px-4 sm:px-6 mb-7 glass-panel rounded-full sticky top-[max(0.5rem,env(safe-area-inset-top))] z-30 shadow-md backdrop-blur-xl">
         {/* Brand Logo & Clean Title */}
         <div className="flex items-center gap-3">
           <img

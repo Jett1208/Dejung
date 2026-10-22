@@ -19,7 +19,7 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
       {/* Floating Bottom Bar (Mobile/iPad) - Tappable anywhere */}
       <div
         onClick={() => setIsExpanded(true)}
-        className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-panel rounded-t-3xl border-b-0 px-4 py-3 cursor-pointer transition select-none ${
+        className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-panel rounded-t-3xl border-b-0 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] cursor-pointer transition select-none ${
           summary.isOverAllocated
             ? 'ring-1 ring-rose-500/40 text-rose-800 dark:text-rose-200'
             : 'text-slate-800 dark:text-white'
@@ -91,7 +91,7 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
             onClick={() => setIsExpanded(false)}
           />
 
-          <div className="relative glass-panel rounded-t-3xl max-h-[85vh] overflow-y-auto p-5 z-10 animate-in slide-in-from-bottom duration-300">
+          <div className="relative glass-panel rounded-t-3xl max-h-[85vh] overflow-y-auto p-5 pb-[max(1.5rem,calc(env(safe-area-inset-bottom)+1rem))] z-10 animate-in slide-in-from-bottom duration-300">
             {/* Handle bar */}
             <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4" />
 
