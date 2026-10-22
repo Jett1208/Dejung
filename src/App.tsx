@@ -25,6 +25,7 @@ export function App() {
     resetPlan,
     exportJSON,
     importJSON,
+    applyState,
   } = useBudgetPlanner();
 
   const [isExportImportOpen, setIsExportImportOpen] = useState(false);
@@ -61,7 +62,7 @@ export function App() {
   const toggleTheme = () => setIsDark((prev) => !prev);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#08090B] text-slate-800 dark:text-white pb-28 lg:pb-16 font-sans relative selection:bg-brand-lime selection:text-slate-950 transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50/70 dark:bg-black/25 text-slate-800 dark:text-white pb-28 lg:pb-16 font-sans relative selection:bg-brand-lime selection:text-slate-950 transition-colors duration-300">
       {/* 3D Ambient WebGL Background Particles */}
       <Ambient3DBackground isDark={isDark} />
 
@@ -122,8 +123,8 @@ export function App() {
             </div>
           </main>
 
-          {/* Right Column: Visual Summary Dashboard with 3D Coin (Desktop Sticky) */}
-          <aside className="hidden lg:block lg:col-span-5 xl:col-span-5 sticky top-6">
+          {/* Right Column: Visual Summary Dashboard with 3D Coin (Desktop & iPad Landscape Sticky) */}
+          <aside className="hidden lg:block lg:col-span-5 xl:col-span-5 sticky top-6 max-h-[calc(100vh-2.5rem)] overflow-y-auto pr-1">
             <SummaryDashboard
               summary={summary}
               items={state.items}
@@ -140,12 +141,14 @@ export function App() {
         onOpenResult={() => setIsResultOpen(true)}
       />
 
-      {/* Export / Import JSON Modal */}
+      {/* Export / Import 6-Char Code & JSON Modal */}
       <ExportImportModal
         isOpen={isExportImportOpen}
         onClose={() => setIsExportImportOpen(false)}
         exportJSON={exportJSON}
         importJSON={importJSON}
+        budgetState={state}
+        onApplyPlan={applyState}
       />
 
       {/* Allocation Result Slip Modal */}

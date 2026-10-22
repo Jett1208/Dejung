@@ -41,8 +41,8 @@ export const Ambient3DBackground: React.FC<Ambient3DBackgroundProps> = ({ isDark
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
 
-    // Floating luminous 3D particles
-    const particleCount = 50;
+    // Floating luminous 3D particles with rich emerald glow
+    const particleCount = 80;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -85,11 +85,11 @@ export const Ambient3DBackground: React.FC<Ambient3DBackgroundProps> = ({ isDark
     const texture = new THREE.CanvasTexture(canvas);
 
     const material = new THREE.PointsMaterial({
-      size: isDark ? 2.6 : 1.8,
+      size: isDark ? 3.4 : 2.0,
       map: texture,
       vertexColors: true,
       transparent: true,
-      opacity: isDark ? 0.5 : 0.3,
+      opacity: isDark ? 0.75 : 0.40,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
@@ -98,16 +98,16 @@ export const Ambient3DBackground: React.FC<Ambient3DBackgroundProps> = ({ isDark
     scene.add(particles);
 
     // Subtle floating geometric tokens
-    const tokenCount = 6;
+    const tokenCount = 8;
     const tokens: THREE.Mesh[] = [];
-    const tokenGeo = new THREE.IcosahedronGeometry(0.8, 0);
+    const tokenGeo = new THREE.IcosahedronGeometry(0.85, 0);
 
     for (let i = 0; i < tokenCount; i++) {
       const tokenMat = new THREE.MeshBasicMaterial({
         color: i % 2 === 0 ? vibrantGreen : emeraldGreen,
         wireframe: true,
         transparent: true,
-        opacity: isDark ? 0.25 : 0.15,
+        opacity: isDark ? 0.35 : 0.20,
       });
       const mesh = new THREE.Mesh(tokenGeo, tokenMat);
       mesh.position.set(
@@ -132,12 +132,14 @@ export const Ambient3DBackground: React.FC<Ambient3DBackgroundProps> = ({ isDark
       }
 
       const delta = clock.getDelta();
+      const elapsedTime = clock.getElapsedTime();
       const posAttr = geometry.attributes.position;
       const array = posAttr.array as Float32Array;
 
-      // Drift upward
+      // Drift particles upward with subtle undulating wave
       for (let i = 0; i < particleCount; i++) {
         array[i * 3 + 1] += speeds[i];
+        array[i * 3] += Math.sin(elapsedTime * 0.5 + i) * 0.015;
         if (array[i * 3 + 1] > 30) {
           array[i * 3 + 1] = -30;
         }

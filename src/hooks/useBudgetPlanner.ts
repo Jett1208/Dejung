@@ -135,6 +135,10 @@ export function useBudgetPlanner() {
     }
   }, []);
 
+  const applyState = useCallback((newState: BudgetState) => {
+    setState(newState);
+  }, []);
+
   return {
     state,
     summary,
@@ -148,5 +152,6 @@ export function useBudgetPlanner() {
     resetPlan,
     exportJSON,
     importJSON,
+    applyState,
   };
 }
