@@ -63,7 +63,7 @@ export function generateSummaryText(data: SlipData): string {
   }
 
   lines.push('');
-  lines.push('สร้างด้วย Dejung — ผู้ช่วยจัดสรรงบประมาณ');
+  lines.push('สร้างด้วย Dejung — วางแผนการเงินอย่างสบายใจ');
 
   return lines.join('\n');
 }
@@ -301,7 +301,7 @@ export async function downloadSlipImage(data: SlipData): Promise<boolean> {
   ctx.textAlign = 'center';
   ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
   ctx.font = '200 14px Mitr, sans-serif';
-  ctx.fillText('Dejung — ผู้ช่วยจัดสรรงบประมาณ • วางแผนการเงินอย่างสบายใจ', width / 2, footerY + 8);
+  ctx.fillText('Dejung • วางแผนการเงินอย่างสบายใจ', width / 2, footerY + 8);
 
   // Convert canvas to Blob & trigger automatic download
   return new Promise<boolean>((resolve) => {

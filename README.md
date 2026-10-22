@@ -1,4 +1,4 @@
-# Dejung (ดีจัง) — ผู้ช่วยจัดสรรงบประมาณ 💸
+# Dejung (ดีจัง) — วางแผนงบประมาณ 💸
 
 > **Local-first Money Allocation Planner** ออกแบบด้วยดีไซน์ **Liquid Glassmorphism**, ฟอนต์ **Mitr ExtraLight** และ **3D Interactive Visuals (Three.js)** เพื่อให้การวางแผนและจัดสรรเงินเป็นเรื่องง่าย ชัดเจน และสบายใจ
 

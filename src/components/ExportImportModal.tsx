@@ -290,27 +290,27 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
                   กรอกรหัส 6 หลักที่ได้จากเครื่องอื่นเพื่อดึงแผนมาใช้
                 </p>
 
-                <div className="flex gap-2 mb-3">
+                <div className="space-y-2.5 mb-3">
                   <input
                     type="text"
                     maxLength={6}
                     value={inputCode}
                     onChange={(e) => setInputCode(sanitizeShareCode(e.target.value))}
                     placeholder="เช่น DJ7K9B"
-                    className="glass-input flex-1 px-4 py-2 text-center font-mono font-medium text-base tracking-widest text-slate-900 dark:text-white uppercase"
+                    className="glass-input w-full px-4 py-3 text-center font-mono font-bold text-lg tracking-widest text-slate-900 dark:text-white uppercase placeholder:font-normal placeholder:tracking-normal placeholder:text-sm"
                   />
                   <button
                     type="button"
                     onClick={handleFetchCode}
                     disabled={isFetchingCode || inputCode.length !== 6}
-                    className="py-2 px-5 bg-brand-lime hover:bg-brand-mint text-slate-950 rounded-full text-xs font-medium flex items-center justify-center gap-1.5 transition shadow-sm disabled:opacity-40"
+                    className="w-full py-3 px-5 bg-brand-lime hover:bg-brand-mint text-slate-950 rounded-full text-xs font-medium flex items-center justify-center gap-2 transition shadow-sm active:scale-[0.98] disabled:opacity-40"
                   >
                     {isFetchingCode ? (
-                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
-                      <Upload className="w-3.5 h-3.5" />
+                      <Upload className="w-4 h-4" />
                     )}
-                    <span>ดึงแผน</span>
+                    <span>ดึงข้อมูลแผน (Fetch Plan)</span>
                   </button>
                 </div>
 

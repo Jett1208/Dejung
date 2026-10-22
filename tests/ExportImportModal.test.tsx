@@ -29,6 +29,7 @@ describe('ExportImportModal Component', () => {
     expect(screen.getByText('ไฟล์ JSON (ถาวร)')).toBeInTheDocument();
     expect(screen.getByText('กดสร้างรหัสแผน 6 หลัก (Quick Code)')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('เช่น DJ7K9B')).toBeInTheDocument();
+    expect(screen.getByText('ดึงข้อมูลแผน (Fetch Plan)')).toBeInTheDocument();
   });
 
   it('switches to JSON tab when clicked', () => {

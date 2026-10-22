@@ -47,6 +47,8 @@ describe('slipGenerator utils', () => {
     expect(text).toContain('เงินกินใช้อิสระต่อวัน: ฿517 บ./วัน');
     expect(text).toContain('เงินคงเหลือติดกระเป๋า: ฿15,500 บาท');
     expect(text).toContain('เป้าหมายเงินออม: ฿50,000');
+    expect(text).toContain('สร้างด้วย Dejung — วางแผนการเงินอย่างสบายใจ');
+    expect(text).not.toContain('ผู้ช่วยจัดสรรงบประมาณ');
   });
 
   it('handles over-allocation in text summary', () => {

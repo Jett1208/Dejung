@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { RotateCcw, FileText, AlertTriangle, Sun, Moon } from 'lucide-react';
+import { RotateCcw, FileText, AlertTriangle, Sun, Moon, Settings } from 'lucide-react';
 
 interface HeaderProps {
   isDark: boolean;
   onToggleTheme: () => void;
   onReset: () => void;
   onOpenExportImport: () => void;
+  onOpenSettings: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -13,6 +14,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleTheme,
   onReset,
   onOpenExportImport,
+  onOpenSettings,
 }) => {
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
@@ -32,20 +34,25 @@ export const Header: React.FC<HeaderProps> = ({
             className="w-9 h-9 rounded-xl object-cover shadow-sm hover:scale-105 transition-transform"
           />
 
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl font-normal tracking-tight text-slate-900 dark:text-white leading-none">
-                Dejung
-              </h1>
-            </div>
-            <p className="text-xs font-light text-slate-500 dark:text-[rgba(255,235,210,0.65)] mt-0.5">
-              ผู้ช่วยจัดสรรงบประมาณ
-            </p>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl font-normal tracking-tight text-slate-900 dark:text-white leading-none">
+              Dejung
+            </h1>
           </div>
         </div>
 
         {/* Action Controls (Glass Pills) */}
         <div className="flex items-center gap-2">
+          {/* Settings Button */}
+          <button
+            onClick={onOpenSettings}
+            className="flex items-center justify-center w-9 h-9 text-slate-700 dark:text-[rgba(255,248,240,0.9)] glass-pill"
+            title="ตั้งค่าระบบ"
+            aria-label="ตั้งค่าระบบ"
+          >
+            <Settings className="w-4 h-4 text-slate-700 dark:text-[rgba(255,248,240,0.9)]" />
+          </button>
+
           {/* Theme Switcher */}
           <button
             onClick={onToggleTheme}

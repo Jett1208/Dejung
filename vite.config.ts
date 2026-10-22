@@ -107,9 +107,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons.svg'],
       manifest: {
-        name: 'Dejung — ผู้ช่วยจัดสรรงบประมาณ',
+        name: 'Dejung — วางแผนงบประมาณ',
         short_name: 'Dejung',
-        description: 'ผู้ช่วยจัดสรรงบประมาณแบบแบ่งเปอร์เซ็นต์และรายวัน',
+        description: 'เครื่องมือวางแผนงบประมาณแบบแบ่งเปอร์เซ็นต์และรายวัน',
         theme_color: '#0A0D14',
         background_color: '#0A0D14',
         display: 'standalone',
