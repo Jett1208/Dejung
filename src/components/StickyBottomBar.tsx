@@ -85,13 +85,13 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
 
       {/* Expandable Bottom Drawer / Sheet */}
       {isExpanded && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-slate-950/40 dark:bg-black/60 backdrop-blur-md flex flex-col justify-end">
+        <div className="lg:hidden fixed inset-0 z-50 bg-slate-950/40 dark:bg-black/60 backdrop-blur-md flex flex-col justify-end animate-drawer-fade-in">
           <div
             className="fixed inset-0"
             onClick={() => setIsExpanded(false)}
           />
 
-          <div className="relative glass-panel rounded-t-3xl max-h-[85vh] overflow-y-auto p-5 pb-[max(1.5rem,calc(env(safe-area-inset-bottom)+1rem))] z-10 animate-in slide-in-from-bottom duration-300">
+          <div className="relative glass-panel rounded-t-3xl max-h-[85vh] overflow-y-auto p-5 pb-[max(1.5rem,calc(env(safe-area-inset-bottom)+1rem))] z-10 animate-drawer-slide-up shadow-2xl">
             {/* Handle bar */}
             <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4" />
 

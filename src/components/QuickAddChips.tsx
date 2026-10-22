@@ -64,22 +64,6 @@ export const QuickAddChips: React.FC<QuickAddChipsProps> = ({ onAdd }) => {
             </button>
           );
         })}
-
-        <button
-          type="button"
-          onClick={() =>
-            onAdd({
-              name: 'ค่าใช้จ่ายใหม่',
-              rule: 'daily',
-              value: 100,
-              isSavings: false,
-            })
-          }
-          className="flex items-center gap-1.5 px-3.5 py-1.5 bg-brand-lime hover:bg-brand-mint text-slate-950 font-medium rounded-full text-xs transition shrink-0 shadow-sm"
-        >
-          <Plus className="w-3.5 h-3.5" />
-          <span>เพิ่มเอง</span>
-        </button>
       </div>
     </div>
   );

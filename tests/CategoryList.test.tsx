@@ -75,4 +75,29 @@ describe('CategoryList & QuickAddChips Components', () => {
     fireEvent.click(deleteButtons[0]);
     expect(handleRemove).toHaveBeenCalledWith('1');
   });
+
+  it('triggers onAddItem when clicking the direct header "+ เพิ่ม" button', () => {
+    const handleAdd = vi.fn();
+    render(
+      <CategoryList
+        items={sampleItems}
+        itemSummaries={sampleSummaries}
+        cycleDays={30}
+        totalFunds={25000}
+        onAddItem={handleAdd}
+        onUpdateItem={vi.fn()}
+        onRemoveItem={vi.fn()}
+      />
+    );
+
+    const headerAddBtn = screen.getByRole('button', { name: /เพิ่ม$/i });
+    fireEvent.click(headerAddBtn);
+    expect(handleAdd).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: 'ค่าใช้จ่ายใหม่',
+        rule: 'daily',
+        value: 100,
+      })
+    );
+  });
 });

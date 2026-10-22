@@ -35,6 +35,8 @@ describe('StickyBottomBar Component', () => {
 
     // Drawer is now open!
     expect(screen.getByText('สรุปภาพรวมงบประมาณ')).toBeInTheDocument();
+    const drawerContainer = screen.getByText('สรุปภาพรวมงบประมาณ').closest('.glass-panel');
+    expect(drawerContainer?.className).toContain('animate-drawer-slide-up');
   });
 
   it('displays red warning state and 0 ฿/วัน (เกินงบ) when over budget', () => {

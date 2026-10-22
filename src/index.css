@@ -198,6 +198,35 @@ input[type='number'] {
 .delay-4 { animation-delay: 270ms; }
 .delay-5 { animation-delay: 340ms; }
 
+/* Bottom Sheet Slide-up & Fade Animations (60fps Compositor-only) */
+@keyframes drawer-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawer-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-drawer-slide-up {
+  animation: drawer-slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform;
+}
+
+.animate-drawer-fade-in {
+  animation: drawer-fade-in 0.25s ease-out both;
+  will-change: opacity;
+}
+
 /* Micro-interaction Tactile Feedback */
 .tactile-btn {
   transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease;

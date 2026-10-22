@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, PlusCircle, Inbox } from 'lucide-react';
+import { Layers, PlusCircle, Inbox, Plus } from 'lucide-react';
 import type { AllocationItem, ItemCalculation } from '../domain/types';
 import { CategoryItem } from './CategoryItem';
 import { QuickAddChips } from './QuickAddChips';
@@ -41,6 +41,22 @@ export const CategoryList: React.FC<CategoryListProps> = ({
             {items.length} รายการ
           </span>
         </div>
+
+        <button
+          type="button"
+          onClick={() =>
+            onAddItem({
+              name: 'ค่าใช้จ่ายใหม่',
+              rule: 'daily',
+              value: 100,
+              isSavings: false,
+            })
+          }
+          className="flex items-center gap-1.5 px-3.5 py-1.5 bg-brand-lime hover:bg-brand-mint text-slate-950 font-medium rounded-full text-xs transition shadow-sm active:scale-95 cursor-pointer"
+        >
+          <Plus className="w-3.5 h-3.5" />
+          <span>เพิ่ม</span>
+        </button>
       </div>
 
       {/* Quick-Add Chips */}
