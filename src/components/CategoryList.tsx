@@ -46,9 +46,9 @@ export const CategoryList: React.FC<CategoryListProps> = ({
           type="button"
           onClick={() =>
             onAddItem({
-              name: 'ค่าใช้จ่ายใหม่',
+              name: 'รายการใหม่',
               rule: 'daily',
-              value: 100,
+              value: 0,
               isSavings: false,
             })
           }
@@ -76,9 +76,9 @@ export const CategoryList: React.FC<CategoryListProps> = ({
             type="button"
             onClick={() =>
               onAddItem({
-                name: 'ค่าอาหาร',
+                name: 'รายการใหม่',
                 rule: 'daily',
-                value: 150,
+                value: 0,
                 isSavings: false,
               })
             }

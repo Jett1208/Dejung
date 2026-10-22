@@ -100,4 +100,21 @@ describe('Domain Calculator Engine (calculateBudget)', () => {
     expect(summary.isOverAllocated).toBe(false);
     expect(summary.savingsCyclesRequired).toBe(0);
   });
+
+  it('does not flag over-allocation when totalFunds is 0, even if items are allocated', () => {
+    const state: BudgetState = {
+      totalFunds: 0,
+      cycleDays: 30,
+      items: [
+        { id: '1', name: 'ค่าข้าว', rule: 'daily', value: 100, isSavings: false },
+      ],
+      savingsTarget: 0,
+      currentSavings: 0,
+    };
+
+    const summary = calculateBudget(state);
+    expect(summary.totalAllocated).toBe(3000);
+    expect(summary.isOverAllocated).toBe(false);
+    expect(summary.overAllocatedAmount).toBe(0);
+  });
 });

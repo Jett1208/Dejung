@@ -49,7 +49,7 @@ export function calculateBudget(state: BudgetState): CalculationSummary {
   totalAllocated = Math.round(totalAllocated * 100) / 100;
   totalSavingsAllocated = Math.round(totalSavingsAllocated * 100) / 100;
   const unallocatedBalance = Math.round((totalFunds - totalAllocated) * 100) / 100;
-  const isOverAllocated = unallocatedBalance < 0;
+  const isOverAllocated = totalFunds > 0 && unallocatedBalance < 0;
   const overAllocatedAmount = isOverAllocated ? Math.abs(unallocatedBalance) : 0;
 
   const freeDailyAllowance = unallocatedBalance > 0

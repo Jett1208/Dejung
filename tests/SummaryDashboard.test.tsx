@@ -47,4 +47,21 @@ describe('SummaryDashboard Component', () => {
     expect(screen.getByText(/จัดสรรเงินเกินงบไป ฿5,000 บาท/i)).toBeInTheDocument();
     expect(screen.getByText(/0 ฿\/วัน \(เกินงบ\)/i)).toBeInTheDocument();
   });
+
+  it('renders "ใส่เงินที่มีในรอบนี้เพื่อคำนวณ" when totalFunds is 0', () => {
+    const zeroSummary: CalculationSummary = {
+      ...mockSummary,
+      totalFunds: 0,
+      unallocatedBalance: -10000,
+      isOverAllocated: false,
+      overAllocatedAmount: 0,
+      freeDailyAllowance: 0,
+    };
+
+    render(<SummaryDashboard summary={zeroSummary} items={mockItems} />);
+
+    expect(screen.getByText('ใส่เงินที่มีในรอบนี้เพื่อคำนวณ')).toBeInTheDocument();
+    expect(screen.getByText('รอใส่เงินก้อนตั้งต้น')).toBeInTheDocument();
+    expect(screen.queryByText(/จัดสรรเงินเกินงบไป/i)).toBeNull();
+  });
 });

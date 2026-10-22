@@ -65,7 +65,11 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, ite
             <Coins className="w-4 h-4 text-emerald-600 dark:text-brand-lime" />
             เงินคงเหลือ
           </span>
-          {summary.isOverAllocated ? (
+          {summary.totalFunds === 0 ? (
+            <span className="glass-pill px-2.5 py-0.5 rounded-full text-[11px] font-extralight text-amber-600 dark:text-amber-400 border border-amber-500/20">
+              รอใส่เงินก้อนตั้งต้น
+            </span>
+          ) : summary.isOverAllocated ? (
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-normal bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
               งบเกิน
             </span>
@@ -83,14 +87,20 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, ite
         {/* Balance amount + 3D Coin Row */}
         <div className="flex items-center justify-between gap-4">
           <div className="flex-1 min-w-0">
-            <div
-              title={formatFullCurrency(summary.unallocatedBalance)}
-              className={`${balanceFontSize} font-normal tracking-tight leading-none mb-3 break-all ${
-                summary.isOverAllocated ? 'text-rose-500' : 'text-slate-900 dark:text-white'
-              }`}
-            >
-              {balanceStr}
-            </div>
+            {summary.totalFunds === 0 ? (
+              <div className="text-xl sm:text-2xl font-normal text-amber-600 dark:text-amber-400 leading-snug mb-3">
+                ใส่เงินที่มีในรอบนี้เพื่อคำนวณ
+              </div>
+            ) : (
+              <div
+                title={formatFullCurrency(summary.unallocatedBalance)}
+                className={`${balanceFontSize} font-normal tracking-tight leading-none mb-3 break-all ${
+                  summary.isOverAllocated ? 'text-rose-500' : 'text-slate-900 dark:text-white'
+                }`}
+              >
+                {balanceStr}
+              </div>
+            )}
 
             {/* Progress Bar of Funds */}
             <div className="w-full bg-slate-200/50 dark:bg-white/10 h-2 rounded-full overflow-hidden mb-2">
@@ -138,17 +148,25 @@ export const SummaryDashboard: React.FC<SummaryDashboardProps> = ({ summary, ite
           className="text-2xl sm:text-3xl font-normal text-emerald-600 dark:text-brand-lime mb-1.5"
           title={formatFullCurrency(summary.freeDailyAllowance)}
         >
-          {summary.isOverAllocated ? (
+          {summary.totalFunds === 0 ? (
+            <span className="text-slate-400 text-lg font-light">ใส่เงินก้อนเพื่อเริ่มคำนวณ</span>
+          ) : summary.isOverAllocated ? (
             <span className="text-rose-400 text-xl font-normal">0 ฿/วัน (เกินงบ)</span>
           ) : (
             `฿${formatCompactNumber(Math.round(summary.freeDailyAllowance))} บ./วัน`
           )}
         </div>
 
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-extralight">
-          {summary.isOverAllocated
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-extralight mb-1">
+          {summary.totalFunds === 0
+            ? 'กรอกเงินก้อนตั้งต้นในขั้นตอนที่ 1 เพื่อคำนวณเงินกินใช้อิสระต่อวัน'
+            : summary.isOverAllocated
             ? 'เนื่องจากจัดสรรเกินงบประมาณ จึงไม่มีเงินคงเหลือสำหรับใช้อิสระต่อวัน'
             : 'เงินช้อปปิ้งหรือกินใช้นอกงบ ที่ใช้ได้ต่อวันโดยไม่กระทบค่าใช้จ่ายที่ตั้งไว้'}
+        </p>
+
+        <p className="text-[10px] font-extralight text-slate-400/80 dark:text-slate-500 mt-2 border-t border-white/5 pt-1.5">
+          * ผลคำนวณตามแผนที่ตั้งไว้ • ไม่มีการตัดเงินหรือย้ายเงินจริงระหว่างบัญชี
         </p>
       </div>
 

@@ -192,6 +192,9 @@ export const AllocationResultModal: React.FC<AllocationResultModalProps> = ({
               ? 'ไม่มียอดเงินคงเหลือสำหรับกินใช้อิสระ'
               : 'เงินกินใช้ ช้อปปิ้ง หรือจ่ายนอกแผนได้ต่อวัน โดยไม่กระทบค่าใช้จ่ายคงที่ที่ตั้งไว้'}
           </p>
+          <p className="text-[10px] font-extralight text-slate-400/80 dark:text-slate-500 mt-1 border-t border-white/5 pt-1.5">
+            * คำนวณตามแผนที่คุณตั้งไว้เพื่อจำลองการจัดสรร • ไม่มีการตัดเงินหรือย้ายเงินจริงระหว่างบัญชี
+          </p>
         </div>
 
         {/* Items List Section */}

@@ -63,6 +63,7 @@ export function generateSummaryText(data: SlipData): string {
   }
 
   lines.push('');
+  lines.push('💡 คำแนะนำ: ผลคำนวณตามแผนที่ตั้งไว้ • ไม่มีการตัดเงินหรือย้ายเงินจริงระหว่างบัญชี');
   lines.push('สร้างด้วย Dejung — วางแผนการเงินอย่างสบายใจ');
 
   return lines.join('\n');

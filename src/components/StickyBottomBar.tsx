@@ -45,12 +45,18 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
                 )}
               </div>
               <div
-                title={formatFullCurrency(summary.unallocatedBalance)}
-                className={`text-lg font-normal leading-tight ${
-                  summary.isOverAllocated ? 'text-rose-500' : 'text-slate-900 dark:text-white'
+                title={summary.totalFunds === 0 ? 'ใส่เงินที่มีในรอบนี้เพื่อคำนวณ' : formatFullCurrency(summary.unallocatedBalance)}
+                className={`text-base sm:text-lg font-normal leading-tight ${
+                  summary.totalFunds === 0
+                    ? 'text-amber-600 dark:text-amber-400'
+                    : summary.isOverAllocated
+                    ? 'text-rose-500'
+                    : 'text-slate-900 dark:text-white'
                 }`}
               >
-                {summary.isOverAllocated ? '-' : ''}฿{formatCompactNumber(Math.abs(summary.unallocatedBalance))}
+                {summary.totalFunds === 0
+                  ? 'ใส่เงินเพื่อคำนวณ'
+                  : `${summary.isOverAllocated ? '-' : ''}฿${formatCompactNumber(Math.abs(summary.unallocatedBalance))}`}
               </div>
             </div>
           </div>
@@ -65,12 +71,20 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
                 ใช้อิสระได้
               </div>
               <div
-                title={formatFullCurrency(summary.freeDailyAllowance)}
+                title={summary.totalFunds === 0 ? 'รอใส่เงินก้อนตั้งต้น' : formatFullCurrency(summary.freeDailyAllowance)}
                 className={`text-xs font-normal ${
-                  summary.isOverAllocated ? 'text-rose-500' : 'text-emerald-600 dark:text-brand-lime'
+                  summary.totalFunds === 0
+                    ? 'text-slate-400'
+                    : summary.isOverAllocated
+                    ? 'text-rose-500'
+                    : 'text-emerald-600 dark:text-brand-lime'
                 }`}
               >
-                {summary.isOverAllocated ? '0 ฿/วัน (เกินงบ)' : `฿${formatCompactNumber(Math.round(summary.freeDailyAllowance))}/วัน`}
+                {summary.totalFunds === 0
+                  ? 'รอใส่เงินก้อน'
+                  : summary.isOverAllocated
+                  ? '0 ฿/วัน (เกินงบ)'
+                  : `฿${formatCompactNumber(Math.round(summary.freeDailyAllowance))}/วัน`}
               </div>
             </div>
 
@@ -125,27 +139,39 @@ export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ summary, items
                   เงินคงเหลือ
                 </span>
                 <p
-                  title={formatFullCurrency(summary.unallocatedBalance)}
-                  className={`text-lg font-normal ${
-                    summary.isOverAllocated ? 'text-rose-500' : 'text-slate-900 dark:text-white'
+                  title={summary.totalFunds === 0 ? 'ใส่เงินที่มีในรอบนี้เพื่อคำนวณ' : formatFullCurrency(summary.unallocatedBalance)}
+                  className={`text-base sm:text-lg font-normal ${
+                    summary.totalFunds === 0
+                      ? 'text-amber-600 dark:text-amber-400'
+                      : summary.isOverAllocated
+                      ? 'text-rose-500'
+                      : 'text-slate-900 dark:text-white'
                   }`}
                 >
-                  {summary.isOverAllocated ? '-' : ''}฿{formatCompactNumber(Math.abs(summary.unallocatedBalance))}
+                  {summary.totalFunds === 0
+                    ? 'ใส่เงินเพื่อคำนวณ'
+                    : `${summary.isOverAllocated ? '-' : ''}฿${formatCompactNumber(Math.abs(summary.unallocatedBalance))}`}
                 </p>
               </div>
 
               <div className="p-3.5 rounded-2xl glass-panel">
                 <span className="text-[11px] font-light text-slate-400">ใช้อิสระเฉลี่ย</span>
                 <p
-                  title={formatFullCurrency(summary.freeDailyAllowance)}
-                  className="text-lg font-normal text-emerald-600 dark:text-brand-lime"
+                  title={summary.totalFunds === 0 ? 'รอใส่เงินก้อนตั้งต้น' : formatFullCurrency(summary.freeDailyAllowance)}
+                  className="text-base sm:text-lg font-normal text-emerald-600 dark:text-brand-lime"
                 >
-                  {summary.isOverAllocated
+                  {summary.totalFunds === 0
+                    ? 'รอใส่เงินก้อน'
+                    : summary.isOverAllocated
                     ? '0 ฿/วัน (เกินงบ)'
                     : `฿${formatCompactNumber(Math.round(summary.freeDailyAllowance))}/วัน`}
                 </p>
               </div>
             </div>
+
+            <p className="text-[10px] text-center text-slate-400 dark:text-slate-500 font-extralight mb-2">
+              * คำนวณตามแผนที่ตั้งไว้ • ไม่มีการตัดเงินหรือย้ายเงินจริงระหว่างบัญชี
+            </p>
 
             {/* 3D Coin preview inside drawer */}
             <div className="my-3 p-4 glass-panel rounded-2xl flex items-center justify-around">
