@@ -56,6 +56,7 @@ export function validateBudgetState(data: unknown): BudgetState | null {
         rule: validRule,
         value: Math.max(0, Number(itemObj.value) || 0),
         isSavings: Boolean(itemObj.isSavings),
+        selectedDays: Array.isArray(itemObj.selectedDays) ? (itemObj.selectedDays as boolean[]) : undefined,
       });
     }
   }

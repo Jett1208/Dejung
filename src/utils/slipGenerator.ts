@@ -37,7 +37,9 @@ export function generateSummaryText(data: SlipData): string {
       const calc = summaryMap.get(item.id)?.calculatedAmount ?? 0;
       const ruleText =
         item.rule === 'daily'
-          ? `${item.value} บ./วัน`
+          ? item.selectedDays
+            ? `${item.value} บ./วัน × ${item.selectedDays.filter(Boolean).length} วัน`
+            : `${item.value} บ./วัน`
           : item.rule === 'percentage'
           ? `${item.value}%`
           : 'คงที่';
@@ -266,7 +268,9 @@ export async function downloadSlipImage(data: SlipData): Promise<boolean> {
       const calc = summaryMap.get(item.id)?.calculatedAmount ?? 0;
       const ruleText =
         item.rule === 'daily'
-          ? `${item.value} บ./วัน`
+          ? item.selectedDays
+            ? `${item.value} บ./วัน × ${item.selectedDays.filter(Boolean).length} วัน`
+            : `${item.value} บ./วัน`
           : item.rule === 'percentage'
           ? `${item.value}%`
           : 'คงที่';

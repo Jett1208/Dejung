@@ -117,4 +117,60 @@ describe('Domain Calculator Engine (calculateBudget)', () => {
     expect(summary.isOverAllocated).toBe(false);
     expect(summary.overAllocatedAmount).toBe(0);
   });
+
+  it('calculates daily rate with selectedDays calendar days instead of cycleDays', () => {
+    // 20 weekdays selected (4 weeks × 5 days)
+    const weekdayDays = new Array<boolean>(28).fill(false);
+    [0, 1, 2, 3, 4, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25].forEach(
+      (idx) => (weekdayDays[idx] = true)
+    );
+
+    const state: BudgetState = {
+      totalFunds: 20000,
+      cycleDays: 30, // cycleDays is 30, but item specifies 20 days
+      items: [
+        {
+          id: '1',
+          name: 'ค่าข้าววันทำงาน',
+          rule: 'daily',
+          value: 43, // 43 baht/day for 20 days = 860 baht
+          isSavings: false,
+          selectedDays: weekdayDays,
+        },
+      ],
+      savingsTarget: 0,
+      currentSavings: 0,
+    };
+
+    const summary = calculateBudget(state);
+    expect(summary.totalAllocated).toBe(860); // 43 * 20 = 860
+    expect(summary.itemSummaries[0].calculatedAmount).toBe(860);
+    expect(summary.unallocatedBalance).toBe(19140);
+  });
+
+  it('handles empty selectedDays (0 days selected) resulting in 0 allocated', () => {
+    const zeroDays = new Array<boolean>(28).fill(false);
+
+    const state: BudgetState = {
+      totalFunds: 10000,
+      cycleDays: 30,
+      items: [
+        {
+          id: '1',
+          name: 'ค่ากาแฟ',
+          rule: 'daily',
+          value: 60,
+          isSavings: false,
+          selectedDays: zeroDays,
+        },
+      ],
+      savingsTarget: 0,
+      currentSavings: 0,
+    };
+
+    const summary = calculateBudget(state);
+    expect(summary.totalAllocated).toBe(0);
+    expect(summary.itemSummaries[0].calculatedAmount).toBe(0);
+    expect(summary.unallocatedBalance).toBe(10000);
+  });
 });

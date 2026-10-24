@@ -235,6 +235,25 @@ input[type='number'] {
   transform: scale(0.96);
 }
 
+/* Calendar Accordion Expand/Collapse (Compositor-safe grid-row animation) */
+.calendar-accordion {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease;
+  opacity: 0;
+}
+
+.calendar-accordion.expanded {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.calendar-accordion > .calendar-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
 /* User-controlled Motion Killswitch via Settings */
 .no-motion *,
 .no-motion *::before,

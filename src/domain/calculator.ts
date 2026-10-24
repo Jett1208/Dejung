@@ -14,9 +14,13 @@ export function calculateBudget(state: BudgetState): CalculationSummary {
     let calculatedAmount: number;
 
     switch (item.rule) {
-      case 'daily':
-        calculatedAmount = rawVal * cycleDays;
+      case 'daily': {
+        const dayCount = (item.selectedDays && item.selectedDays.length > 0)
+          ? item.selectedDays.filter(Boolean).length
+          : cycleDays;
+        calculatedAmount = rawVal * dayCount;
         break;
+      }
       case 'fixed':
         calculatedAmount = rawVal;
         break;

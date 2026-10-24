@@ -6,6 +6,7 @@ export interface AllocationItem {
   rule: AllocationRule;
   value: number; // rate per day, fixed amount, or percentage number
   isSavings: boolean;
+  selectedDays?: boolean[]; // 28-slot array (4 weeks, Mon-Sun) for daily rule calendar selection
 }
 
 export interface BudgetState {

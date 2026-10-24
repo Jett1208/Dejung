@@ -122,6 +122,7 @@ export function useBudgetPlanner() {
                 : 'fixed') as AllocationItem['rule'],
               value: Number(it?.value) || 0,
               isSavings: Boolean(it?.isSavings),
+              selectedDays: Array.isArray(it?.selectedDays) ? (it.selectedDays as boolean[]) : undefined,
             }))
           : [],
         savingsTarget: Math.max(0, Number(parsed.savingsTarget) || 0),

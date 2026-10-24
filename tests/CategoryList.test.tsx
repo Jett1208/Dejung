@@ -100,4 +100,31 @@ describe('CategoryList & QuickAddChips Components', () => {
       })
     );
   });
+
+  it('renders "เลือกวัน" button for daily items and toggles calendar grid accordion', () => {
+    const handleUpdate = vi.fn();
+    render(
+      <CategoryList
+        items={sampleItems}
+        itemSummaries={sampleSummaries}
+        cycleDays={30}
+        totalFunds={25000}
+        onAddItem={vi.fn()}
+        onUpdateItem={handleUpdate}
+        onRemoveItem={vi.fn()}
+      />
+    );
+
+    // Only 1 daily item ('ค่าข้าวประจำวัน') so there should be 1 'เลือกวัน' button
+    const calendarBtns = screen.getAllByRole('button', { name: /เลือกวัน/i });
+    expect(calendarBtns.length).toBe(1);
+
+    // Click 'เลือกวัน'
+    fireEvent.click(calendarBtns[0]);
+
+    // Accordion opens, showing day headers 'จ', 'อ', 'พ', etc.
+    expect(screen.getByText('จ')).toBeInTheDocument();
+    expect(screen.getByText('อา')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /จ-ศ/i })).toBeInTheDocument();
+  });
 });
